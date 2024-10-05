@@ -1,0 +1,61 @@
+package com.hmvss.auth.persistence.model;
+
+import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
+import java.util.Date;
+
+
+@Entity
+@Table(name = "personal_data")
+@AllArgsConstructor
+@NoArgsConstructor
+@Data
+@Builder
+public class PersonalData {
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id", nullable = false, length = 15)
+    private Long id;
+
+    @Column(nullable = false, length = 30)
+    private String names;
+
+    @Column(length = 60)
+    private String lastnames;
+
+    @Column(length = 30)
+    private String sex;
+
+    @Column(name = "born_date")
+    private Date bornDate;
+
+    @Column(name = "civil_state" ,length = 30)
+    private String civilState;
+
+    @Column(name = "dni", length = 30)
+    private String identificationDocumentNumber;
+
+    @Column(name = "profession", length = 100)
+    private String profession;
+
+    @Column(name = "education_level", length= 30)
+    private String educationLevel;
+
+    @ManyToOne
+    @JoinColumn(name = "location_id", nullable = false)
+    private Location location;
+
+    @ManyToOne
+    @JoinColumn(name = "contact_id", nullable = false)
+    private Contact contact;
+
+    @Column(name = "registry_date", nullable = false)
+    private Date registryDate;
+
+
+}
