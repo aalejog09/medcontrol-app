@@ -20,8 +20,8 @@ public class Municipality {
     @Column(name = "id", nullable = false, length = 15)
     private Long id;
 
-    @OneToOne
-    @JoinColumn(name = "state_id")
+    @ManyToOne
+    @JoinColumn(name = "state_id", nullable = false)
     private State state;
 
     @Column(name = "municipality_name", nullable = false, length = 100)

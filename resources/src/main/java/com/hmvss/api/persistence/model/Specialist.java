@@ -21,8 +21,8 @@ public class Specialist{
     @Column(name = "id", nullable = false, length = 15)
     private Long id;
 
-    @OneToOne
-    @JoinColumn(name = "personal_data_id", nullable = false)
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "personal_data_id", referencedColumnName = "id")
     private PersonalData personalData;
 
     @Column(name = "medical_college_code", nullable = false, length = 200)

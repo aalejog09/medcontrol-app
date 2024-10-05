@@ -1,4 +1,4 @@
-package com.hmvss.api.user;
+package com.hmvss.api.controller.user;
 
 
 import com.hmvss.api.dto.pagination.PaginationDTO;

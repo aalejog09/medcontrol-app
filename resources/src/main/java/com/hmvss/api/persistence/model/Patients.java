@@ -32,8 +32,8 @@ public class Patients {
     @Column(name = "patient_observation", length = 30)
     private String observation;
 
-    @ManyToOne
-    @JoinColumn(name = "personal_data", nullable = false)
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "personal_data_id", referencedColumnName = "id")
     private PersonalData personalData;
 
     @ManyToMany

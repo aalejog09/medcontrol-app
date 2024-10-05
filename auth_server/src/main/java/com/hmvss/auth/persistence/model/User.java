@@ -41,8 +41,7 @@ public class User {
     @Convert(converter = BooleanToSmallintConverter.class)
     private boolean credentialExpired;
 
-    @OneToOne
-    @JoinColumn(name = "personal_data_id")
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "personal_data_id", referencedColumnName = "id")
     private PersonalData personalData;
-
 }

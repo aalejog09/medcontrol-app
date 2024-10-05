@@ -5,7 +5,7 @@ server:
 
 spring:
   datasource:
-    url: jdbc:postgresql://localhost:5432/authentication
+    url: jdbc:postgresql://localhost:5432/medcontrol_db
     username: postgres
     password: 123456
   application:

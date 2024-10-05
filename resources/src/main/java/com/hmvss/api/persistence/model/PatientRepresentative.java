@@ -25,8 +25,8 @@ public class PatientRepresentative {
     @Column(name = "family_relationship", length = 30)
     private String familyRelationship;
 
-    @ManyToOne
-    @JoinColumn(name = "personal_data", nullable = false)
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "personal_data_id", referencedColumnName = "id")
     private PersonalData personalData;
 
     @ManyToMany(mappedBy = "representatives")

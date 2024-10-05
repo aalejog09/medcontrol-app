@@ -60,6 +60,8 @@ public class UserService implements IUserService {
         } catch (Exception e) {
             throw new APIException(APIError.VALIDATION_ERROR);
         }
+
+
         return userPageable;
     }
 }
