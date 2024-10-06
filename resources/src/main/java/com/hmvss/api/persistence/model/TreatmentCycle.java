@@ -10,24 +10,20 @@ import java.util.Date;
 import java.util.List;
 
 @Entity
-@Table(name = "treatment_cicle")
+@Table(name = "treatment_cycle")
 @AllArgsConstructor
 @NoArgsConstructor
 @Data
 @Builder
-public class TreatmentCicle {
+public class TreatmentCycle {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id", nullable = false, length = 15)
     private Long id;
 
-    @ManyToOne
-    @JoinColumn(name = "medical_record_id", nullable = false)
-    private MedicalRecord medicalRecord;
-
-    @Column(name = "cicle_number", nullable = false)
-    private Integer cicleNumber;
+    @Column(name = "cycle_number", nullable = false)
+    private Integer cycleNumber;
 
     @Column(name = "treatment", nullable = false)
     private String treatment;
@@ -44,10 +40,15 @@ public class TreatmentCicle {
     @Column(name = "registry_date")
     private Date registryDate;
 
-    @Column(name = "treatment_cicle_date")
+    @Column(name = "treatment_cycle_date")
     private Date treatmentCicleDate;
 
-    @OneToMany(mappedBy = "treatmentCicle", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<VitalSignals> vitalSignals;
+    @ManyToOne
+    @JoinColumn(name = "patient_id")
+    private Patients patient;
+
+    @OneToOne
+    @JoinColumn(name = "vital_signals_id")
+    private VitalSignals vitalSignals;
 
 }

@@ -22,14 +22,6 @@ public class MedicalRecord {
     @Column(name = "id", nullable = false, length = 15)
     private Long id;
 
-    @ManyToOne
-    @JoinColumn(name = "patients_id")
-    private Patients patient;
-
-    @OneToOne
-    @JoinColumn(name = "user_id", nullable = false)
-    private User createdBy;
-
     @Column(name="reason", nullable = false, length = 30)
     private String reason;
 
@@ -45,16 +37,25 @@ public class MedicalRecord {
     @Column(name = "registry_date", nullable = false)
     private Date registryDate;
 
+
+    @OneToOne
+    @JoinColumn(name = "user_id", nullable = false)
+    private User createdBy;
+
     @ManyToOne
     @JoinColumn(name = "medical_service_id")
     private MedicalService historyMedicalService;
 
     @ManyToOne
-    @JoinColumn(name = "refered_medical_service_id")
+    @JoinColumn(name = "referred_medical_service_id")
     private MedicalService referedMedicalService;
 
-    @OneToMany(mappedBy = "medicalRecord", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<MedicalConsultation> medicalConsultations;
+    @ManyToOne
+    @JoinColumn(name = "patient_id")
+    private Patients patient;
 
+    @OneToOne
+    @JoinColumn(name = "vital_signals_id")
+    private VitalSignals vitalSignals;
 
 }

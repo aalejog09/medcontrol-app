@@ -1,5 +1,6 @@
 package com.hmvss.auth.persistence.model;
 
+import com.hmvss.auth.util.converters.BooleanToSmallintConverter;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -31,6 +32,10 @@ public class Function {
 
 	@Column(name = "creation_date")
 	private Date creationDate;
+
+	@Column(columnDefinition = "smallint", nullable = false)
+	@Convert(converter = BooleanToSmallintConverter.class)
+	private boolean enabled;
 
 
 }

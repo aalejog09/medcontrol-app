@@ -35,7 +35,6 @@ public class MedicalConsultation {
     @Column(name = "treatment", nullable = false, length = 200)
     private String treatment;
 
-
     @Column(name = "registry_date", nullable = false)
     private Date registryDate;
 
@@ -47,9 +46,15 @@ public class MedicalConsultation {
     @JoinColumn(name = "specialist_id")
     Specialist specialist;
 
-
     @ManyToOne
-    @JoinColumn(name = "medical_record_id")
-    private MedicalRecord medicalRecord;
+    @JoinColumn(name = "patient_id")
+    private Patients patient;
+
+    @OneToOne
+    @JoinColumn(name = "vital_signals_id")
+    private VitalSignals vitalSignals;
+
+    //TODO
+    // Examen fisico. 
 
 }

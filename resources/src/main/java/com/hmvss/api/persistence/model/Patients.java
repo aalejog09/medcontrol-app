@@ -44,7 +44,6 @@ public class Patients {
     )
     private Set<PatientRepresentative> representatives;
 
-
     @OneToMany(mappedBy = "patient", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<PersonalSurgicalHistory> personalSurgicalHistoryList;
 
@@ -55,12 +54,18 @@ public class Patients {
     private List<PsicobiologicalHabits> psicobiologicalHabits;
 
     @OneToMany(mappedBy = "patient", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<MedicalRecord> medicalRecords;
-
-    @OneToMany(mappedBy = "patient", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<ExaminationStudies> examinationStudies;
 
     @OneToMany(mappedBy = "patient", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<LabOrder> labOrders;
+
+    @OneToMany(mappedBy = "patient", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<MedicalRecord> medicalRecords;
+
+    @OneToMany(mappedBy = "patient", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<MedicalConsultation> medicalConsultations;
+
+    @OneToMany(mappedBy = "patient", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<TreatmentCycle> treatmentCycles;
 
 }

@@ -1,5 +1,6 @@
 package com.hmvss.api.persistence.model;
 
+import com.hmvss.api.util.converters.BooleanToSmallintConverter;
 import jakarta.persistence.*;
 import lombok.Data;
 
@@ -25,5 +26,9 @@ public class Role implements Serializable {
 
     @Column(name = "creation_date")
     private Date creationDate;
+
+    @Column(columnDefinition = "smallint")
+    @Convert(converter = BooleanToSmallintConverter.class)
+    private boolean enabled;
 
 }
