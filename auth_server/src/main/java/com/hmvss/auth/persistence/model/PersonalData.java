@@ -46,6 +46,9 @@ public class PersonalData {
     @Column(name = "education_level", length= 30)
     private String educationLevel;
 
+    @Column(name = "occupation", length= 30)
+    private String occupation;
+
     @ManyToOne
     @JoinColumn(name = "location_id", nullable = false)
     private Location location;

@@ -32,6 +32,9 @@ public class Patients {
     @Column(name = "patient_observation", length = 30)
     private String observation;
 
+    @Column(name = "bond_location", length = 100)
+    private String bornLocation;
+
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "personal_data_id", referencedColumnName = "id")
     private PersonalData personalData;
@@ -43,6 +46,9 @@ public class Patients {
             inverseJoinColumns = @JoinColumn(name = "patients_representative_id")
     )
     private Set<PatientRepresentative> representatives;
+
+    @OneToMany(mappedBy = "patient", cascade = CascadeType.ALL)
+    private List<PhysicalExam> physicalExams;
 
     @OneToMany(mappedBy = "patient", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<PersonalSurgicalHistory> personalSurgicalHistoryList;
@@ -67,5 +73,7 @@ public class Patients {
 
     @OneToMany(mappedBy = "patient", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<TreatmentCycle> treatmentCycles;
+
+
 
 }

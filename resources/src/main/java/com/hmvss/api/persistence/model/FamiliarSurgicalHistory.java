@@ -30,6 +30,9 @@ public class FamiliarSurgicalHistory {
     @Column(name = "family_relationship",  length = 200)
     private String familyRelationship;
 
+    @Column(name = "observation",  length = 200)
+    private String observation;
+
     @ManyToOne
     @JoinColumn(name = "patients_id")
     private Patients patient;

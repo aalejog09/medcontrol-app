@@ -55,6 +55,6 @@ public class MedicalConsultation {
     private VitalSignals vitalSignals;
 
     //TODO
-    // Examen fisico. 
+    // Examen fisico.
 
 }
