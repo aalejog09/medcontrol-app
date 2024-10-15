@@ -20,10 +20,10 @@ public class PhysicalExam {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(name = "name", length = 15)
-    private double weight;
+    @Column(name = "weigh", length = 15)
+    private double weigh;
 
-    @Column(name = "name", length = 15)
+    @Column(name = "height", length = 15)
     private double height;
 
     @Column(name = "sistolicBloodPressure")
@@ -32,10 +32,10 @@ public class PhysicalExam {
     @Column(name = "diastolicBloodPressure")
     private Integer diastolicBloodPressure;
 
-    @Column(name = "name", length = 15)
+    @Column(name = "hear_rate", length = 15)
     private Integer heartRate;
 
-    @Column(name = "name", length = 15)
+    @Column(name = "oxygenSaturation", length = 15)
     private Integer oxygenSaturation;
 
     @OneToOne(cascade = CascadeType.ALL)

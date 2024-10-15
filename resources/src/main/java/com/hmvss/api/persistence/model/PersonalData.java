@@ -51,6 +51,9 @@ public class PersonalData {
     @Column(name = "occupation", length= 30)
     private String occupation;
 
+    @Column(name = "nationality", length= 30)
+    private String nationality;
+
     @ManyToOne
     @JoinColumn(name = "location_id", nullable = false)
     private Location location;

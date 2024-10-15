@@ -25,8 +25,8 @@ public class VitalSignals {
     @Column(name = "rhythm_pulse")
     private String rhythmPulse;
 
-    @Column(name = "rhythm_strength")
-    private String rhythmStrength;
+    @Column(name = "oxygen_saturation")
+    private Double oxygenSaturation;
 
     @Column(name = "respiratory_rate")
     private Integer respiratoryRate;

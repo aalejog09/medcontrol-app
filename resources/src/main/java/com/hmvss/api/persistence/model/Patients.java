@@ -32,7 +32,7 @@ public class Patients {
     @Column(name = "patient_observation", length = 30)
     private String observation;
 
-    @Column(name = "bond_location", length = 100)
+    @Column(name = "born_location", length = 100)
     private String bornLocation;
 
     @OneToOne(cascade = CascadeType.ALL)
