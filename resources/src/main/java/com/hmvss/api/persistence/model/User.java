@@ -19,7 +19,6 @@ public class User {
     @Column(name = "id", nullable = false, length = 15)
     private Long id;
 
-
     @Column(nullable = false, length = 30)
     private String username;
 

@@ -28,6 +28,4 @@ public class State {
     @Column(name = "iso_3166_2_code", nullable = false, length = 4)
     private String iso3166Code;
 
-
-
 }

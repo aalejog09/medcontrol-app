@@ -6,19 +6,30 @@ import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 import org.mapstruct.Mappings;
 
-import java.util.List;
-
-
-@Mapper(componentModel = "spring")
+@Mapper(componentModel = "spring", uses = PersonalDataMapper.class)
 public interface UserMapper {
 
     @Mappings({
-            @Mapping( source = "username", target = "username"),
-            @Mapping( source = "password", target = "password"),
-            @Mapping( source = "enabled", target = "enabled")
+            @Mapping(source = "id", target = "id"),
+            @Mapping(source = "username", target = "username"),
+            @Mapping(source = "password", target = "password"),
+            @Mapping(source = "enabled", target = "enabled"),
+            @Mapping(source = "locked", target = "locked"),
+            @Mapping(source = "expired", target = "expired"),
+            @Mapping(source = "credentialExpired", target = "credentialExpired"),
+            @Mapping(source = "personalData", target = "personalData")
     })
-    UserDTO mapToUser(User user);
+    UserDTO toUserDTO(User user);
 
-    List<UserDTO> mapUserDTOList(List<User> users);
-
+    @Mappings({
+            @Mapping(source = "id", target = "id"),
+            @Mapping(source = "username", target = "username"),
+            @Mapping(source = "password", target = "password"),
+            @Mapping(source = "enabled", target = "enabled"),
+            @Mapping(source = "locked", target = "locked"),
+            @Mapping(source = "expired", target = "expired"),
+            @Mapping(source = "credentialExpired", target = "credentialExpired"),
+            @Mapping(source = "personalData", target = "personalData")
+    })
+    User toUser(UserDTO userDTO);
 }

@@ -39,7 +39,7 @@ public class PersonalData {
     @Column(name = "civil_state" ,length = 30)
     private String civilState;
 
-    @Column(name = "dni", length = 30)
+    @Column(name = "dni", length = 30, unique = true)
     private String identificationDocumentNumber;
 
     @Column(name = "profession", length = 100)

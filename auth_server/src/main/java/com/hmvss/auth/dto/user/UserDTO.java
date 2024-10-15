@@ -1,7 +1,7 @@
 package com.hmvss.auth.dto.user;
 
-import com.hmvss.auth.util.converters.BooleanToSmallintConverter;
-import jakarta.persistence.*;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.hmvss.auth.dto.personalDataInfo.PersonalDataDTO;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -13,14 +13,27 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class UserDTO {
 
+    @JsonProperty("id")
+    private Long id;
 
-
+    @JsonProperty("username")
     private String username;
 
+    @JsonProperty("password")
     private String password;
 
-    @Convert(converter = BooleanToSmallintConverter.class)
-    private boolean enabled = false;
+    @JsonProperty("enabled")
+    private boolean enabled;
 
+    @JsonProperty("locked")
+    private boolean locked;
 
+    @JsonProperty("expired")
+    private boolean expired;
+
+    @JsonProperty("credentialExpired")
+    private boolean credentialExpired;
+
+    @JsonProperty("personalData")
+    private PersonalDataDTO personalData;
 }
