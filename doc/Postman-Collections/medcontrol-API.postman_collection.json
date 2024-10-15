@@ -1,0 +1,316 @@
+{
+	"info": {
+		"_postman_id": "6d24a30d-18ae-44df-8749-98977d459956",
+		"name": "medcontrol-API",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "8397244"
+	},
+	"item": [
+		{
+			"name": "UserService",
+			"item": [
+				{
+					"name": "userListPageable Copy",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJraWQiOiI3YmIwYmU2MC1hY2ZjLTQ4OWYtOTE3ZS01MGE5ZDhhN2U4MWMiLCJhbGciOiJSUzI1NiJ9.eyJzdWIiOiJhYWxlam8iLCJhdWQiOiJpcXQtY2xpZW50IiwibmJmIjoxNzI4MDk2MTE2LCJzY29wZSI6WyJyZWFkIiwid3JpdGUiXSwiaXNzIjoiaHR0cDovL2xvY2FsaG9zdDo5MDAwL2F1dGgtc2VydmVyIiwiQXR0cmlidXRlcyI6ImF0dHJpYnV0ZXMiLCJleHAiOjE3MjgxODI1MTYsImlhdCI6MTcyODA5NjExNiwianRpIjoiNDRjZjcwN2QtZDVlNi00MmFhLWE3NDItMWNkNWYyMTQzYzUzIiwiYXV0aG9yaXRpZXMiOltdfQ.jpStYYk3CXjaqmBINt0e2whYlNtjiQlTFVCGcNCv10QGjKEuqnVv7Oy_TW_crlqaMm3cH0QOpkyxhQ6gJmSZOnJLGr_DXNgFtnmga4t_WBlwVCoLRYfvJ-hWVJITZ3D0BJ9IK7YG9bbA4678hfpftxDbWBaGtO3Q4BBhDyi2pAlxkgtjwDHNPo4cchiuXR4ySnD4S4AdRggwfUmTlDtFpnYrzv2GVqOBG536KfUcJL0c1XwlLFIXlVhLsBIFUUmeZx8ZoqtwYZt5VK6lydNJraAMs56VRzC9nNLbKi4p_VKqhpCwTYv9LUB2JotxQ_kUmWOTr8cpfe2towEhjqbWvQ",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8081/medcontrol-api/api/user/all/pageables?page=1&elements=2",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8081",
+							"path": [
+								"medcontrol-api",
+								"api",
+								"user",
+								"all",
+								"pageables"
+							],
+							"query": [
+								{
+									"key": "page",
+									"value": "1"
+								},
+								{
+									"key": "elements",
+									"value": "2"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "AuthService",
+			"item": [
+				{
+					"name": "RefreshTokenFromAuthServer Copy",
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": [
+								{
+									"key": "username",
+									"value": "api-client",
+									"type": "string"
+								},
+								{
+									"key": "password",
+									"value": "$2a$10$Alq.pO0r.Eb1H2UE/4/LGu.kUgJFDBQBb46rKfArbtXl/XUBPlAFm",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "grant_type",
+									"value": "refresh_token",
+									"type": "text"
+								},
+								{
+									"key": "refresh_token",
+									"value": "ijbImcfanKcbUEzLoksy6OZ_OZ135GAOtJ4XK0Mz0SVkB3iIEtWfC2J7FWFE0VVoIldcj9rNRdu2sXaS11zoIAbEtbHWxMvpn8pq9m5JNx0v7SqJHIbfqMXSODguhUE0",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "http://127.0.0.1:9000/auth-server/oauth2/token",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "9000",
+							"path": [
+								"auth-server",
+								"oauth2",
+								"token"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "requestToken (custom) Copy",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"username\":\"aalejo\" ,\r\n    \"password\":\"123456\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:9000/auth-server/login/token",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "9000",
+							"path": [
+								"auth-server",
+								"login",
+								"token"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "refreshToken (custom) Copy",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"refreshToken\":\"c9-Nj66-tUV2fABXtx7FqGfJjHCVra6c5zTiGa-G-Fzx9RdMoENhF2YscU_atHHW4D9VoLzZYkP_YzirHduFwlO8SoJKVRgWzWwrhPMJc2F6rXbO9fKRkaI-Fn-O7bqdhAjWivRE7ftvDnWbINPQ9U2535MtqFnIWD18yEOGEHDKgOYPRCFIllFC_RYIFHsB87fro_YO6F37pjBMnb67C0OxxFE4oExF5XZUEQas6KknU4E2dkoKVVPlotmtOfU9\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:9000/auth-server/login/refresh",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "9000",
+							"path": [
+								"auth-server",
+								"login",
+								"refresh"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "getTokenFromAuthServer (Password Flow authServer) Copy",
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": [
+								{
+									"key": "username",
+									"value": "api-client",
+									"type": "string"
+								},
+								{
+									"key": "password",
+									"value": "$2a$10$Alq.pO0r.Eb1H2UE/4/LGu.kUgJFDBQBb46rKfArbtXl/XUBPlAFm",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "client_id",
+								"value": "iqt-client",
+								"type": "text"
+							},
+							{
+								"key": "grant_type",
+								"value": "password",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "grant_type",
+									"value": "password",
+									"type": "text"
+								},
+								{
+									"key": "username",
+									"value": "aalejo",
+									"type": "text"
+								},
+								{
+									"key": "password",
+									"value": "123456",
+									"type": "text"
+								},
+								{
+									"key": "scope",
+									"value": "openid,write",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "http://127.0.0.1:9000/auth-server/oauth2/token",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "9000",
+							"path": [
+								"auth-server",
+								"oauth2",
+								"token"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "PersonalDataService",
+			"item": [
+				{
+					"name": "register-personalData",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJraWQiOiI3ODAyOTgyMy02NmI2LTQ5YjQtYjMyZC04MmNjMzdiODRlOTUiLCJhbGciOiJSUzI1NiJ9.eyJzdWIiOiJhZG1pbiIsImF1ZCI6ImFwaS1jbGllbnQiLCJuYmYiOjE3MjkwMjY2ODksInNjb3BlIjpbInJlYWQiLCJ3cml0ZSJdLCJpc3MiOiJodHRwOi8vbG9jYWxob3N0OjkwMDAvYXV0aC1zZXJ2ZXIiLCJBdHRyaWJ1dGVzIjoiYXR0cmlidXRlcyIsImV4cCI6MTcyOTExMzA4OSwiaWF0IjoxNzI5MDI2Njg5LCJqdGkiOiIwNmMzMzc2MS0wNWI3LTQ3NzUtOWEyNy02MjBmNGFjZDlmNDMiLCJhdXRob3JpdGllcyI6WyJBRE1JTiJdfQ.IkKQGDyr_w-3jW3UN_VMeY1JcXCVQp27xq-cNRc-yKPMTpvUKiLjwrdREtTzoQSoCJB4qB_Vwt_gV5yweI0xpxjoX7CO04hLbHcvHOjJ0aoU8_aPUxn_T03T6UTlA5a-N7NYQouNcCOAawGR3nPD2POqVVPuVHav1nA8vX4LkYxk68SbTqsz4WAgE1lvtHKTjnZ0zr9e2HIFy5FBXnx904pfeHseNaf0mLREkHAGYYf19MnhXtoEyQfSeY9mdSWBJ4P24Yu2eCiVARW6hjp71HoqMN7maPRidfF08WeAdo4V9svDY1yNpagbSwajCgAtiNmjdExmN2YQgZVYqFqvvA",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"names\": \"John\",\r\n    \"lastnames\": \"Doe\",\r\n    \"sex\": \"M\",\r\n    \"born_date\": \"01/01/1990\",\r\n    \"civil_state\": \"Single\",\r\n    \"dni\": \"123456789\",\r\n    \"profession\": \"Engineer\",\r\n    \"education_level\": \"Bachelor\",\r\n    \"occupation\": \"Software Developer\",\r\n    \"nationality\": \"Venezuelan\",\r\n    \"location\": {\r\n        \"housing\": \"137 Main St\",\r\n        \"additional_location_info\": \"Apartment 101\",\r\n        \"city\": {\r\n            \"id\": 137\r\n        }\r\n    },\r\n    \"contact\": {\r\n        \"phone_number_principal\": \"1234567890\",\r\n        \"additional_phone_number\": \"0987654321\",\r\n        \"email_principal\": \"john.doe@example.com\",\r\n        \"additional_email\": \"john.alt@example.com\"\r\n    }\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8081/medcontrol-api/api/personaldata/register",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8081",
+							"path": [
+								"medcontrol-api",
+								"api",
+								"personaldata",
+								"register"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}
