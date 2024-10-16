@@ -26,7 +26,7 @@ public class Specialist{
     private PersonalData personalData;
 
     @Column(name = "medical_college_code", nullable = false, length = 200)
-    private String MedicalCollegeCode;
+    private String medicalCollegeCode;
 
     @Column(name = "mpps_code", nullable = false, length = 200)
     private String mppsCode;
@@ -34,8 +34,10 @@ public class Specialist{
     @Column(name = "speciality", nullable = false, length = 200)
     private String speciality;
 
+    @Column(name = "type", nullable = false, length = 200)
+    private String type;
+
     @OneToMany(mappedBy = "specialist", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<MedicalConsultation> medicalConsultations;
-
 
 }

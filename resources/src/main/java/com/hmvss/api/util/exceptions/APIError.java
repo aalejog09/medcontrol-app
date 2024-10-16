@@ -14,6 +14,7 @@ public enum APIError {
     ARGUMENT_NOT_VALID("E0004", HttpStatus.BAD_REQUEST, "El valor ingresado no es soportado para el campo: ", List.of("")),
     NOT_FOUND("E0005", HttpStatus.NOT_FOUND, "La informacion solicitada no se encuentra disponible.", List.of("")),
     DB_SAVING_ERROR("E0006", HttpStatus.CONFLICT , "No fue posible registrar la informacion", List.of(""))
+
     ;
 
 

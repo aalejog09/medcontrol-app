@@ -20,7 +20,6 @@ public class UserDTO {
     @JsonProperty("id")
     private Long id;
 
-
     @JsonProperty("username")
     private String username;
 

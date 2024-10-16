@@ -14,6 +14,7 @@ import com.hmvss.api.persistence.repository.contact.IContactRepository;
 import com.hmvss.api.persistence.repository.location.ILocationRepository;
 import com.hmvss.api.persistence.repository.location.city.ICityRepository;
 import com.hmvss.api.services.interfaces.IPersonalDataService;
+import com.hmvss.api.util.Utility;
 import com.hmvss.api.util.exceptions.APIError;
 import com.hmvss.api.util.exceptions.APIException;
 import lombok.extern.slf4j.Slf4j;
@@ -60,10 +61,11 @@ public class PersonalDataService implements IPersonalDataService {
     @Autowired
     PaginationService paginationService;
 
+    @Autowired
+    Utility ultility;
 
     @Override
     public PersonalDataDTO register(PersonalDataDTO personalDataDTO) {
-
         City city = cityRepository.findById(personalDataDTO.getLocation().getCity().getId())
                 .orElseThrow(() -> new APIException(APIError.NOT_FOUND));
         Location newLocation = locationMapper.toLocation(personalDataDTO.getLocation());
@@ -90,12 +92,16 @@ public class PersonalDataService implements IPersonalDataService {
     public PersonalDataDTO getPersonalDataByDniAndBornDate(String dni, LocalDate bornDate) {
         log.info("dni: {} bornDate:{}", dni, bornDate);
        // log.info("PesonalData: {}", personalDataRepository.findByIdentificationDocumentNumberAndBornDate(dni, bornDate));
-        PersonalDataDTO userFound =  personalDataMapper.toPersonalDataDTO(personalDataRepository.findByIdentificationDocumentNumberAndBornDate(dni, bornDate));
-        if(userFound == null){
+        PersonalDataDTO personalDataDTO =  personalDataMapper.toPersonalDataDTO(personalDataRepository.findByIdentificationDocumentNumberAndBornDate(dni, bornDate));
+        if(personalDataDTO == null){
             log.error("Data Not Found");
             throw new APIException(APIError.NOT_FOUND);
         }
-        return userFound;
+        return personalDataDTO;
+    }
+
+    public PersonalData getPersonalDataEntity(PersonalDataDTO personalDataDTO){
+        return personalDataMapper.toPersonalData(personalDataDTO);
     }
 
     @Override
