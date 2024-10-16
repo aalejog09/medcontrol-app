@@ -8,11 +8,12 @@ import java.util.List;
 
 @Getter
 public enum APIError {
-    VALIDATION_ERROR("E0001",HttpStatus.BAD_REQUEST, "The are attributes with wrong values", Collections.emptyList()),
-    TOKEN_EXPIRED("E0002", HttpStatus.BAD_REQUEST, "Error Token Expired", List.of("")),
-    MISSING_REQUEST_BODY("E0003",HttpStatus.BAD_REQUEST, "Required request body is missing", Collections.emptyList()),
-    ARGUMENT_NOT_VALID("E0004", HttpStatus.BAD_REQUEST, "Input value not supported for field: ", List.of("")),
-    NOT_FOUND("E0005", HttpStatus.NOT_FOUND, "The requested information does not exist", List.of(""));
+    VALIDATION_ERROR("E0001",HttpStatus.BAD_REQUEST, "La informacion ingresada es incorrecta.", Collections.emptyList()),
+    TOKEN_EXPIRED("E0002", HttpStatus.BAD_REQUEST, "Token expirado, debe ingresar nuevamente al sistema.", List.of("")),
+    MISSING_REQUEST_BODY("E0003",HttpStatus.BAD_REQUEST, "Error procesando la solicitud, revise los datos.", Collections.emptyList()),
+    ARGUMENT_NOT_VALID("E0004", HttpStatus.BAD_REQUEST, "El valor ingresado no es soportado para el campo: ", List.of("")),
+    NOT_FOUND("E0005", HttpStatus.NOT_FOUND, "La informacion solicitada no se encuentra disponible.", List.of("")),
+    DB_SAVING_ERROR("E0006", HttpStatus.CONFLICT , "No fue posible registrar la informacion", List.of(""))
     ;
 
 

@@ -34,7 +34,8 @@ public class PersonalData {
     private String sex;
 
     @Column(name = "born_date")
-    private Date bornDate;
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd-MM-yyyy")
+    private LocalDate bornDate;
 
     @Column(name = "civil_state" ,length = 30)
     private String civilState;

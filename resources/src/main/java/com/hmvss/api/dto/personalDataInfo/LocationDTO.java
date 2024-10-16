@@ -16,12 +16,12 @@ public class LocationDTO {
     @JsonProperty("id")
     private Long  id;
 
-    @JsonProperty("city")
-    private CityDTO city;
-
     @JsonProperty("housing")
     private String housing;
 
     @JsonProperty("additional_location_info")
     private String additionalInfo;
+
+    @JsonProperty("city")
+    private CityDTO city;
 }

@@ -18,11 +18,11 @@ public class ContactDTO {
     @JsonProperty("principalPhone")
     private String principalPhone;
 
-    @JsonProperty("additionalPhone")
-    private String additionalPhone;
-
     @JsonProperty("email")
     private String email;
+
+    @JsonProperty("additionalPhone")
+    private String additionalPhone;
 
     @JsonProperty("additionalEmail")
     private String additionalEmail;

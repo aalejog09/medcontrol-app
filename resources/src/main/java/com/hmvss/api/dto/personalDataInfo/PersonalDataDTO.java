@@ -10,6 +10,7 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.time.LocalDate;
 import java.util.Date;
 
 @Data
@@ -43,8 +44,8 @@ public class PersonalDataDTO {
     @NotBlank(message = "born_date cannot be null or blank.")
     @Size(min=10, message = "born_date cannot be less than 10 digits.")
     @JsonProperty("born_date")
-    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd/MM/yyyy")
-    private Date bornDate;
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd-MM-yyyy")
+    private LocalDate bornDate;
 
     @Schema(description = "civil_state", example = "married")
     @NotBlank(message = "civil_state cannot be null or blank.")
@@ -82,6 +83,11 @@ public class PersonalDataDTO {
     @JsonProperty("nationality")
     private String nationality;
 
+
+    @JsonProperty("registry_date")
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd-MM-yyyy")
+    private Date registryDate;
+
     @NotBlank(message = "nationality cannot be null or blank.")
     @JsonProperty("location")
     private LocationDTO location;
@@ -91,7 +97,4 @@ public class PersonalDataDTO {
     private ContactDTO contact;
 
 
-    @JsonProperty("registry_date")
-    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd/MM/yyyy")
-    private Date registryDate;
 }

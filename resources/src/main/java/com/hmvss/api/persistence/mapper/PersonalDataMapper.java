@@ -1,10 +1,14 @@
 package com.hmvss.api.persistence.mapper;
 
 import com.hmvss.api.dto.personalDataInfo.PersonalDataDTO;
+import com.hmvss.api.dto.user.UserDTO;
 import com.hmvss.api.persistence.model.PersonalData;
+import com.hmvss.api.persistence.model.User;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 import org.mapstruct.Mappings;
+
+import java.util.List;
 
 @Mapper(componentModel = "spring", uses = {LocationMapper.class, ContactMapper.class})
 public interface PersonalDataMapper {
@@ -44,4 +48,7 @@ public interface PersonalDataMapper {
             @Mapping(source = "contact", target = "contact")
     })
     PersonalData toPersonalData(PersonalDataDTO personalDataDTO);
+
+    List<PersonalDataDTO> toPersonalDataDTOList(List<PersonalData> personalDataList);
+    List<PersonalData> toPersonalDataList(List<PersonalDataDTO> personalDataDTOList);
 }

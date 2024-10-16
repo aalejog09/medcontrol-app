@@ -1,11 +1,13 @@
 package com.hmvss.auth.persistence.model;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.time.LocalDate;
 import java.util.Date;
 
 
@@ -32,7 +34,8 @@ public class PersonalData {
     private String sex;
 
     @Column(name = "born_date")
-    private Date bornDate;
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd-MM-yyyy")
+    private LocalDate bornDate;
 
     @Column(name = "civil_state" ,length = 30)
     private String civilState;

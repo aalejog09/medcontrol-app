@@ -4,6 +4,7 @@ package com.hmvss.api.util.exceptions;
 import jakarta.servlet.http.HttpServletRequest;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.coyote.BadRequestException;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
@@ -63,6 +64,18 @@ public class APIExceptionHandler {
         return ResponseEntity.badRequest().body(ErrorDTO.builder()
                 .code(APIError.ARGUMENT_NOT_VALID.getCode())
                 .description(APIError.ARGUMENT_NOT_VALID.getHttpStatus().getReasonPhrase())
+                .detail(errors)
+                .build());
+    }
+
+    @ExceptionHandler(DataIntegrityViolationException.class)
+    public ResponseEntity<?> handleDataIntegrityViolationException(DataIntegrityViolationException ex) {
+        List<String> errors = new ArrayList<>();
+        log.info("ex:{}",ex.getLocalizedMessage());
+        errors.add("No es posible registrar la informacion - Violacion de integridad de datos");
+        return ResponseEntity.badRequest().body(ErrorDTO.builder()
+                .code(APIError.DB_SAVING_ERROR.getCode())
+                .description(APIError.DB_SAVING_ERROR.getHttpStatus().getReasonPhrase())
                 .detail(errors)
                 .build());
     }

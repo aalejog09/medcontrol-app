@@ -9,7 +9,7 @@ import java.util.List;
 @Getter
 public enum APIError {
 
-    VALIDATION_ERROR("E0001",HttpStatus.BAD_REQUEST, "The are attributes with wrong values", Collections.emptyList()),
+    VALIDATION_ERROR("E0001",HttpStatus.BAD_REQUEST, "The are attributes with wrong values.", Collections.emptyList()),
     TOKEN_EXPIRED("E0002", HttpStatus.BAD_REQUEST, "Error Token Expired", List.of("")),
     MISSING_REQUEST_BODY("E0003",HttpStatus.BAD_REQUEST, "Required request body is missing", Collections.emptyList()),
     ARGUMENT_NOT_VALID("E0004", HttpStatus.BAD_REQUEST, "Input value not supported for field: ", List.of("")),

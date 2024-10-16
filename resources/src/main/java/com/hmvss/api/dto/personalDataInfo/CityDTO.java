@@ -16,12 +16,12 @@ public class CityDTO {
     @JsonProperty("id")
     private Long  id;
 
-    @JsonProperty("state")
-    private StateDTO state;
-
     @JsonProperty("city_name")
     private String cityName;
 
     @JsonProperty("capital")
     private boolean capital;
+
+    @JsonProperty("state")
+    private StateDTO state;
 }
