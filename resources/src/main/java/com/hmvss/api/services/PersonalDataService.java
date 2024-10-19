@@ -1,17 +1,12 @@
 package com.hmvss.api.services;
 
 import com.hmvss.api.dto.pagination.PaginationDTO;
-import com.hmvss.api.dto.personalDataInfo.ContactDTO;
-import com.hmvss.api.dto.personalDataInfo.LocationDTO;
 import com.hmvss.api.dto.personalDataInfo.PersonalDataDTO;
-import com.hmvss.api.persistence.mapper.LocationMapper;
 import com.hmvss.api.persistence.mapper.PersonalDataMapper;
 import com.hmvss.api.persistence.model.*;
 import com.hmvss.api.persistence.repository.PersonalData.IPersonalDataPagSortRepository;
 import com.hmvss.api.persistence.repository.PersonalData.IPersonalDataRepository;
-import com.hmvss.api.persistence.repository.contact.IContactRepository;
-import com.hmvss.api.persistence.repository.location.ILocationRepository;
-import com.hmvss.api.persistence.repository.location.city.ICityRepository;
+import com.hmvss.api.persistence.repository.city.ICityRepository;
 import com.hmvss.api.services.interfaces.IContactService;
 import com.hmvss.api.services.interfaces.ILocationService;
 import com.hmvss.api.services.interfaces.IPersonalDataService;
@@ -98,22 +93,13 @@ public class PersonalDataService implements IPersonalDataService {
         PersonalData personalData = personalDataRepository.findById(personalDataDTO.getId())
                 .orElseThrow(() -> new APIException(APIError.NOT_FOUND));
         // Actualiza los campos necesarios
-        personalData.setNames(personalDataDTO.getNames());
-        personalData.setLastnames(personalDataDTO.getLastnames());
-        personalData.setSex(personalDataDTO.getSex());
-        personalData.setBornDate(personalDataDTO.getBornDate());
-        personalData.setCivilState(personalDataDTO.getCivilState());
-        personalData.setIdentificationDocumentNumber(personalDataDTO.getIdentificationDocumentNumber());
-        personalData.setProfession(personalDataDTO.getProfession());
-        personalData.setEducationLevel(personalDataDTO.getEducationLevel());
-        personalData.setOccupation(personalDataDTO.getOccupation());
-        personalData.setNationality(personalDataDTO.getNationality());
+        PersonalData personalDataUpdated = personalDataMapper.toPersonalData(personalDataDTO);
         //Location
         personalData.setLocation(locationService.updateLocation(personalDataDTO.getLocation()));
         //Contact
-        personalData.setContact(contactService.updateLocation(personalDataDTO.getContact()));
+        personalData.setContact(contactService.updateContact(personalDataDTO.getContact()));
 
-        PersonalData personalDataUpdated = personalDataRepository.save(personalData);
+        personalDataUpdated = personalDataRepository.save(personalDataUpdated);
 
         return personalDataMapper.toPersonalDataDTO(personalDataUpdated);
     }

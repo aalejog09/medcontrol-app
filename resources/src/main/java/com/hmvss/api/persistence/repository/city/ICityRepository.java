@@ -1,4 +1,4 @@
-package com.hmvss.api.persistence.repository.location.city;
+package com.hmvss.api.persistence.repository.city;
 
 import com.hmvss.api.persistence.model.City;
 import org.springframework.data.jpa.repository.JpaRepository;

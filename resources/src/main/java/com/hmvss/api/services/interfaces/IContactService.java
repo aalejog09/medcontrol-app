@@ -8,7 +8,7 @@ public interface IContactService {
 
     Contact getContactDataByEmail(String email);
 
-    Contact updateLocation(ContactDTO contactDTO);
+    Contact updateContact(ContactDTO contactDTO);
 
     Contact registerContact(ContactDTO contactDTO);
 }

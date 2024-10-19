@@ -27,23 +27,19 @@ public class ContactService implements IContactService {
 
     @Override
     public Contact getContactDataByEmail(String email) {
-        Contact contact = contactRepository.findByEmail(email).orElseThrow(() -> new  APIException(APIError.NOT_FOUND));
-        log.info("Contact : {}",contact);
-        return contact;
+        return contactRepository.findByEmail(email).orElseThrow(() -> new  APIException(APIError.NOT_FOUND));
     }
 
     @Override
     @Transactional
     public Contact registerContact(ContactDTO contactDTO) {
-       // Contact newContact = getContactDataByEmail(contactDTO.getEmail());
         Contact  newContact = contactMapper.toContact(contactDTO);
         newContact = contactRepository.save(newContact);
-
         return newContact;
     }
 
     @Override
-    public Contact updateLocation(ContactDTO contactDTO){
+    public Contact updateContact(ContactDTO contactDTO){
         Contact contact=contactMapper.toContact(contactDTO);
         return contactRepository.save(contact);
     }

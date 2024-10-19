@@ -20,17 +20,10 @@ import java.time.LocalDate;
 @RestController
 @RequestMapping("/api/personaldata")
 public class PersonalDataController {
+
+
     @Autowired
     IPersonalDataService personalDataService;
-
-/*    @SwaggerGenericResponses
-    @GetMapping("/all/pageables")
-    public ResponseEntity<PaginationDTO>  getAllPageables(@RequestParam(defaultValue = "1") int page,
-                                                          @RequestParam(defaultValue = "4")  int elements,
-                                                          @RequestHeader("Authorization") String authorizationHeader) {
-        PaginationDTO response = this.personalDataService.getAllUserListPageables(page,elements);
-        return ResponseEntity.ok(response);
-    }*/
 
     @SwaggerGenericResponses
     @PostMapping("/register")

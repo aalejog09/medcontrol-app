@@ -1,7 +1,7 @@
 package com.hmvss.api.services;
 
 import com.hmvss.api.persistence.model.City;
-import com.hmvss.api.persistence.repository.location.city.ICityRepository;
+import com.hmvss.api.persistence.repository.city.ICityRepository;
 import com.hmvss.api.services.interfaces.ICityService;
 import com.hmvss.api.util.exceptions.APIError;
 import com.hmvss.api.util.exceptions.APIException;
