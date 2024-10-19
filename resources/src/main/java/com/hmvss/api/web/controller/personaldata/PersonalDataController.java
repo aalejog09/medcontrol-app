@@ -3,6 +3,7 @@ package com.hmvss.api.web.controller.personaldata;
 
 import com.hmvss.api.dto.pagination.PaginationDTO;
 import com.hmvss.api.dto.personalDataInfo.PersonalDataDTO;
+import com.hmvss.api.persistence.model.PersonalData;
 import com.hmvss.api.services.interfaces.IPersonalDataService;
 import com.hmvss.api.util.swagger.documentation.SwaggerGenericResponses;
 import lombok.extern.slf4j.Slf4j;
@@ -33,8 +34,8 @@ public class PersonalDataController {
 
     @SwaggerGenericResponses
     @PostMapping("/register")
-    public ResponseEntity<PersonalDataDTO> registerUser(@RequestBody PersonalDataDTO personalDataDTO) {
-        PersonalDataDTO personalDataSaved = personalDataService.register(personalDataDTO);
+    public ResponseEntity<?> registerUser(@RequestBody PersonalDataDTO personalDataDTO) {
+        PersonalData personalDataSaved = personalDataService.register(personalDataDTO);
         return ResponseEntity.ok(personalDataSaved);
     }
 

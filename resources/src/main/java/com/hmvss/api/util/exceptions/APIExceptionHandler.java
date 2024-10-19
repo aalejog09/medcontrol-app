@@ -71,8 +71,19 @@ public class APIExceptionHandler {
     @ExceptionHandler(DataIntegrityViolationException.class)
     public ResponseEntity<?> handleDataIntegrityViolationException(DataIntegrityViolationException ex) {
         List<String> errors = new ArrayList<>();
-        log.info("ex:{}",ex.getLocalizedMessage());
+        log.info("ex: {}", ex.getLocalizedMessage());
+
         errors.add("No es posible registrar la informacion - Violacion de integridad de datos");
+        int detailIndex = ex.getLocalizedMessage().indexOf("Detail:");
+        String error = "";
+        if (detailIndex != -1) {
+            int endIndex = ex.getLocalizedMessage().indexOf("]", detailIndex);
+            if (endIndex != -1) {
+                error =  ex.getLocalizedMessage().substring(detailIndex + 7, endIndex).trim();
+            }
+
+        }
+        errors.add(error);
         return ResponseEntity.badRequest().body(ErrorDTO.builder()
                 .code(APIError.DB_SAVING_ERROR.getCode())
                 .description(APIError.DB_SAVING_ERROR.getHttpStatus().getReasonPhrase())

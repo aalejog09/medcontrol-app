@@ -19,7 +19,7 @@ public class User {
     @Column(name = "id", nullable = false, length = 15)
     private Long id;
 
-    @Column(nullable = false, length = 30)
+    @Column(nullable = false, length = 30,unique = true)
     private String username;
 
     @Column(length = 60)
@@ -44,4 +44,5 @@ public class User {
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "personal_data_id", referencedColumnName = "id")
     private PersonalData personalData;
+
 }

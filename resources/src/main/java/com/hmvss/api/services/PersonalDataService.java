@@ -4,7 +4,6 @@ import com.hmvss.api.dto.pagination.PaginationDTO;
 import com.hmvss.api.dto.personalDataInfo.ContactDTO;
 import com.hmvss.api.dto.personalDataInfo.LocationDTO;
 import com.hmvss.api.dto.personalDataInfo.PersonalDataDTO;
-import com.hmvss.api.persistence.mapper.ContactMapper;
 import com.hmvss.api.persistence.mapper.LocationMapper;
 import com.hmvss.api.persistence.mapper.PersonalDataMapper;
 import com.hmvss.api.persistence.model.*;
@@ -13,10 +12,13 @@ import com.hmvss.api.persistence.repository.PersonalData.IPersonalDataRepository
 import com.hmvss.api.persistence.repository.contact.IContactRepository;
 import com.hmvss.api.persistence.repository.location.ILocationRepository;
 import com.hmvss.api.persistence.repository.location.city.ICityRepository;
+import com.hmvss.api.services.interfaces.IContactService;
+import com.hmvss.api.services.interfaces.ILocationService;
 import com.hmvss.api.services.interfaces.IPersonalDataService;
 import com.hmvss.api.util.Utility;
 import com.hmvss.api.util.exceptions.APIError;
 import com.hmvss.api.util.exceptions.APIException;
+import jakarta.transaction.Transactional;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -27,7 +29,6 @@ import org.springframework.stereotype.Service;
 import java.time.LocalDate;
 import java.util.Date;
 import java.util.List;
-import java.util.Optional;
 
 
 @Slf4j
@@ -37,11 +38,7 @@ public class PersonalDataService implements IPersonalDataService {
     @Autowired
     IPersonalDataRepository personalDataRepository;
 
-    @Autowired
-    ILocationRepository locationRepository;
 
-    @Autowired
-    IContactRepository contactRepository;
 
     @Autowired
     ICityRepository cityRepository;
@@ -53,39 +50,35 @@ public class PersonalDataService implements IPersonalDataService {
     PersonalDataMapper personalDataMapper;
 
     @Autowired
-    LocationMapper locationMapper;
-
-    @Autowired
-    ContactMapper contactMapper;
-
-    @Autowired
     PaginationService paginationService;
+
+    @Autowired
+    IContactService contactService;
+
+    @Autowired
+    ILocationService locationService;
 
     @Autowired
     Utility ultility;
 
     @Override
-    public PersonalDataDTO register(PersonalDataDTO personalDataDTO) {
-        City city = cityRepository.findById(personalDataDTO.getLocation().getCity().getId())
-                .orElseThrow(() -> new APIException(APIError.NOT_FOUND));
-        Location newLocation = locationMapper.toLocation(personalDataDTO.getLocation());
-        newLocation.setCity(city);
-        Location locationSaved = locationRepository.save(newLocation);
-        Contact newContact = contactMapper.toContact(personalDataDTO.getContact());
-        Contact contactSaved = contactRepository.save(newContact);
+    @Transactional
+    public PersonalData register(PersonalDataDTO personalDataDTO) {
+
+        Contact contactSaved =contactService.registerContact(personalDataDTO.getContact());
+        Location locationSaved = locationService.registerLocation(personalDataDTO.getLocation());
 
         PersonalData newPersonalData = personalDataMapper.toPersonalData(personalDataDTO);
         newPersonalData.setRegistryDate(new Date());
+
         newPersonalData.setLocation(locationSaved);
         newPersonalData.setContact(contactSaved);
-        PersonalData personalDataSaved = null;
-
+        PersonalData personalDataSaved;
         personalDataSaved = personalDataRepository.save(newPersonalData);
         if(personalDataSaved.getId() == null){
             throw new APIException(APIError.VALIDATION_ERROR);
         }
-
-        return personalDataMapper.toPersonalDataDTO(personalDataSaved);
+        return personalDataSaved;
     }
 
     @Override
@@ -98,10 +91,6 @@ public class PersonalDataService implements IPersonalDataService {
             throw new APIException(APIError.NOT_FOUND);
         }
         return personalDataDTO;
-    }
-
-    public PersonalData getPersonalDataEntity(PersonalDataDTO personalDataDTO){
-        return personalDataMapper.toPersonalData(personalDataDTO);
     }
 
     @Override
@@ -120,48 +109,15 @@ public class PersonalDataService implements IPersonalDataService {
         personalData.setOccupation(personalDataDTO.getOccupation());
         personalData.setNationality(personalDataDTO.getNationality());
         //Location
-        personalData.setLocation(updateLocationFromPersonalDataDTO(personalDataDTO.getLocation()));
+        personalData.setLocation(locationService.updateLocation(personalDataDTO.getLocation()));
         //Contact
-        personalData.setContact(updateContactFromPersonalDataDTO(personalDataDTO.getContact()));
+        personalData.setContact(contactService.updateLocation(personalDataDTO.getContact()));
 
         PersonalData personalDataUpdated = personalDataRepository.save(personalData);
 
         return personalDataMapper.toPersonalDataDTO(personalDataUpdated);
     }
 
-    private Location updateLocationFromPersonalDataDTO(LocationDTO locationDTO){
-
-        Location location = getLocationById(locationDTO.getId());
-        location.setCity(getCityById(locationDTO.getCity().getId()));
-        location.setHousing(locationDTO.getHousing());
-        location.setAdditionalInfo(locationDTO.getAdditionalInfo());
-        return locationRepository.save(location);
-    }
-
-    private Location getLocationById(Long locationId){
-        return locationRepository.findById(locationId)
-                .orElseThrow(() -> new APIException(APIError.NOT_FOUND));
-    }
-
-    private City getCityById(Long cityId){
-        return cityRepository.findById(cityId)
-                .orElseThrow(() -> new APIException(APIError.NOT_FOUND));
-    }
-
-    private Contact updateContactFromPersonalDataDTO(ContactDTO contactDTO){
-        Contact contact = getContactById(contactDTO.getId());
-
-        contact.setEmail(contactDTO.getEmail());
-        contact.setAdditionalEmail(contactDTO.getAdditionalEmail());
-        contact.setPrincipalPhone(contactDTO.getPrincipalPhone());
-        contact.setAdditionalPhone(contactDTO.getAdditionalPhone());
-        return contactRepository.save(contact);
-    }
-
-    private Contact getContactById(Long contactId){
-        return  contactRepository.findById(contactId)
-                .orElseThrow(() -> new APIException(APIError.NOT_FOUND));
-    }
 
 
     @Override
@@ -193,4 +149,36 @@ public class PersonalDataService implements IPersonalDataService {
         return personalDataList;
     }
 
+
+
+
+
+
+/*    private Location updateLocationFromPersonalDataDTO(LocationDTO locationDTO){
+        Location location = locationService.getLocationById(locationDTO.getId());
+        location.setCity(getCityById(locationDTO.getCity().getId()));
+        location.setHousing(locationDTO.getHousing());
+        location.setAdditionalInfo(locationDTO.getAdditionalInfo());
+        return locationRepository.save(location);
+    }*/
+
+    private City getCityById(Long cityId){
+        return cityRepository.findById(cityId)
+                .orElseThrow(() -> new APIException(APIError.NOT_FOUND));
+    }
+
+/*    private Contact updateContactFromPersonalDataDTO(ContactDTO contactDTO){
+        Contact contact = getContactById(contactDTO.getId());
+
+        contact.setEmail(contactDTO.getEmail());
+        contact.setAdditionalEmail(contactDTO.getAdditionalEmail());
+        contact.setPrincipalPhone(contactDTO.getPrincipalPhone());
+        contact.setAdditionalPhone(contactDTO.getAdditionalPhone());
+        return contactRepository.save(contact);
+    }*/
+
+/*    private Contact getContactById(Long contactId){
+        return  contactRepository.findById(contactId)
+                .orElseThrow(() -> new APIException(APIError.NOT_FOUND));
+    }*/
 }

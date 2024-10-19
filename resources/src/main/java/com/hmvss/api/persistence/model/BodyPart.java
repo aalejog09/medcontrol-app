@@ -30,5 +30,4 @@ public class BodyPart {
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "bodyPart")
     private List<SubPart> subParts;
 
-    // Getters and Setters
 }

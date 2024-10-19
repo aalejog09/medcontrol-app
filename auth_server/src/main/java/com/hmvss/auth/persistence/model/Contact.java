@@ -25,11 +25,10 @@ public class Contact {
     @Column(name= "additional_phone_number", length = 30)
     private String additionalPhone;
 
-    @Column(name= "email_principal", length = 45)
+    @Column(name= "email_principal", length = 45,unique = true)
     private String email;
 
     @Column(name= "additional_email", length = 45)
     private String additionalEmail;
-
 
 }

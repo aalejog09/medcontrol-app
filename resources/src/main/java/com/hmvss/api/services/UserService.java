@@ -3,6 +3,7 @@ package com.hmvss.api.services;
 import com.hmvss.api.dto.pagination.PaginationDTO;
 import com.hmvss.api.dto.user.UserDTO;
 import com.hmvss.api.persistence.mapper.UserMapper;
+import com.hmvss.api.persistence.model.PersonalData;
 import com.hmvss.api.persistence.model.User;
 import com.hmvss.api.persistence.repository.user.IUserPagSortRepository;
 import com.hmvss.api.persistence.repository.user.IUserRepository;
@@ -18,7 +19,6 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
-import java.text.ParseException;
 import java.util.List;
 
 @Slf4j
@@ -33,6 +33,10 @@ public class UserService implements IUserService {
 
     @Autowired
     UserMapper userMapper;
+
+    @Autowired
+    private PersonalDataService personalDataService;
+
 
     @Autowired
     PaginationService paginationService;
@@ -76,9 +80,17 @@ public class UserService implements IUserService {
     }
 
     @Override
-    public UserDTO registerUser(UserDTO userDTO) {
-        User newUser = userMapper.toUser(userDTO);
+    public User registerUser(UserDTO userDTO) {
+
+        PersonalData personalData = personalDataService.register(userDTO.getPersonalData());
+
+        if(personalData==null){
+            throw new APIException(APIError.DB_SAVING_ERROR);
+        }
+
+        User newUser= new User();
         String password = utility.passwordGenerator();
+        log.info("password {}",password);
         newUser.setPassword(passwordEncoder.encode(password));
         newUser.setLocked(false);
         newUser.setExpired(false);
@@ -87,8 +99,11 @@ public class UserService implements IUserService {
         newUser.setUsername(userDTO.getPersonalData().getContact().getEmail());
         User savedUser = userRepository.save(newUser);
         savedUser.setPassword("********");
-
-
-        return userMapper.toUserDTO(savedUser);
+        return savedUser;
     }
+
+
+
+
+
 }

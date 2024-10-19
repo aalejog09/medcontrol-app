@@ -1,4 +1,4 @@
-package com.hmvss.auth.util;
+package com.hmvss.api.util.converters;
 
 import jakarta.persistence.AttributeConverter;
 import jakarta.persistence.Converter;
@@ -8,7 +8,7 @@ import java.time.format.DateTimeFormatter;
 
 @Converter(autoApply = true)
 public class LocalDateAttributeConverter implements AttributeConverter<LocalDate, String> {
-    private static final DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy");
+    private static final DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
 
     @Override
     public String convertToDatabaseColumn(LocalDate locDate) {
