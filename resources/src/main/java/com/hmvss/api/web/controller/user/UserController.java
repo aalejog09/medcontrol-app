@@ -22,8 +22,7 @@ public class UserController {
     @SwaggerGenericResponses
     @GetMapping("/all/pageables")
     public ResponseEntity<PaginationDTO>  getAllPageables(@RequestParam(defaultValue = "1") int page,
-                                                          @RequestParam(defaultValue = "4")  int elements,
-                                                          @RequestHeader("Authorization") String authorizationHeader) {
+                                                          @RequestParam(defaultValue = "4")  int elements) {
         PaginationDTO response = this.userService.getAllUserListPageables(page,elements);
         return ResponseEntity.ok(response);
     }

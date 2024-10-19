@@ -15,7 +15,7 @@ import java.lang.annotation.*;
 @ApiResponses({
         @ApiResponse(responseCode = "200"),
         @ApiResponse(responseCode = "400", content = @Content(mediaType = MediaType.APPLICATION_JSON_VALUE, schema = @Schema(implementation = ErrorDTO.class))),
-        @ApiResponse(responseCode = "404", content = @Content(schema = @Schema(implementation = Void.class))),
+        @ApiResponse(responseCode = "404", content = @Content(mediaType = MediaType.APPLICATION_JSON_VALUE,schema = @Schema(implementation = ErrorDTO.class))),
         @ApiResponse(responseCode = "401", content = @Content(schema = @Schema(implementation = Void.class)))
 })
 public @interface SwaggerGenericResponses {

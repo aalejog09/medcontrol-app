@@ -7,6 +7,7 @@ import com.hmvss.api.persistence.model.Role;
 import com.hmvss.api.persistence.model.RoleFunction;
 import com.hmvss.api.persistence.repository.RoleFunction.IRoleFunctionRepository;
 import com.hmvss.api.services.interfaces.IFunctionService;
+import com.hmvss.api.services.interfaces.IRoleFunctionService;
 import com.hmvss.api.services.interfaces.IRoleService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,7 +16,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 @Slf4j
 @Service
-public class RoleFunctionService {
+public class RoleFunctionService implements IRoleFunctionService {
 
     @Autowired
     private IRoleFunctionRepository roleFunctionRepository;
@@ -30,6 +31,7 @@ public class RoleFunctionService {
     private RoleFunctionMapper roleFunctionMapper;
 
     @Transactional
+    @Override
     public RoleFunctionDTO assignFunctionToRole(Long roleId,  Long functionId) {
         // Buscar el rol y la función por sus IDs
         Role role = roleService.getRoleById(roleId);
