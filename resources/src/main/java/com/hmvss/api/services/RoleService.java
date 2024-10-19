@@ -11,6 +11,8 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.Date;
+
 @Slf4j
 @Service
 public class RoleService implements IRoleService {
@@ -28,8 +30,16 @@ public class RoleService implements IRoleService {
 
     @Override
     public Role registerRole(RoleDTO roleDTO) {
-        return roleRepository.save(roleMapper.toRole(roleDTO));
+        Role role = roleMapper.toRole(roleDTO);
+        role.setRoleName(roleDTO.getRoleName().toUpperCase());
+        role.setEnabled(true);
+        role.setCreationDate(new Date());
+        return roleRepository.save(role);
     }
 
+    @Override
+    public Role getRoleByName(String roleName) {
+        return roleRepository.findByRoleName(roleName.toUpperCase()).orElseThrow(()-> new APIException(APIError.NOT_FOUND));
+    }
 
 }

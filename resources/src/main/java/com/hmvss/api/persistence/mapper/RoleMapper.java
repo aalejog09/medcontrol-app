@@ -14,7 +14,6 @@ import java.util.List;
 public interface RoleMapper {
 
     @Mappings({
-        @Mapping(source = "id", target = "id"),
         @Mapping(source = "roleName", target = "roleName"),
         @Mapping(source = "creationDate", target = "creationDate"),
         @Mapping(source = "enabled", target = "enabled")

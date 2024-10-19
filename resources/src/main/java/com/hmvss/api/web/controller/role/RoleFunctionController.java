@@ -1,4 +1,4 @@
-package com.hmvss.api.web.controller.user;
+package com.hmvss.api.web.controller.role;
 
 import com.hmvss.api.dto.user.RoleFunctionDTO;
 import com.hmvss.api.services.interfaces.IRoleFunctionService;

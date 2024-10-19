@@ -15,7 +15,7 @@ import java.util.Date;
 public class FunctionDTO {
 
     @JsonProperty("id")
-    private int id;
+    private Long id;
 
     @JsonProperty("description")
     private String description;

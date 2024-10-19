@@ -21,8 +21,11 @@ public class Role implements Serializable {
     @Column(name = "id", columnDefinition = "int4")
     private Integer Id;
 
-    @Column(name = "name")
+    @Column(name = "name", unique = true)
     private String roleName;
+
+    @Column(name = "description")
+    private String description;
 
     @Column(name = "creation_date")
     private Date creationDate;

@@ -37,5 +37,4 @@ public class Function {
 	@Convert(converter = BooleanToSmallintConverter.class)
 	private boolean enabled;
 
-
 }

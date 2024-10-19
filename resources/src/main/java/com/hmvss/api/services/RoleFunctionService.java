@@ -42,7 +42,6 @@ public class RoleFunctionService implements IRoleFunctionService {
         roleFunction.setRole(role);
         roleFunction.setFunction(function);
         RoleFunction savedRoleFunction = roleFunctionRepository.save(roleFunction);
-
         // Convertir RoleFunction guardado a DTO y retornarlo
         return roleFunctionMapper.toRoleFunctionDTO(savedRoleFunction);
     }

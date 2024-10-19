@@ -8,4 +8,6 @@ public interface IRoleService {
      Role getRoleById(Long id);
 
      Role registerRole(RoleDTO roleDTO);
+
+     Role getRoleByName(String roleName);
 }
