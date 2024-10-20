@@ -1,3 +1,4 @@
+/*
 package com.hmvss.api.web.controller.role;
 
 import com.hmvss.api.dto.user.RoleFunctionDTO;
@@ -21,3 +22,4 @@ public class RoleFunctionController {
         return ResponseEntity.ok(roleFunctionDTO);
     }
 }
+*/

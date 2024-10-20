@@ -1,5 +1,6 @@
 package com.hmvss.api.services.interfaces;
 
+import com.hmvss.api.dto.user.AddFunctionDTO;
 import com.hmvss.api.dto.user.FunctionDTO;
 import com.hmvss.api.persistence.model.Function;
 
@@ -9,7 +10,7 @@ public interface IFunctionService {
 
     Function getFunctionById(Long functionId);
 
-    List<Function> getAllFuntcionList();
+    List<FunctionDTO> getAllFuntcionList();
 
     Function registerFunction (FunctionDTO functionDTO);
 

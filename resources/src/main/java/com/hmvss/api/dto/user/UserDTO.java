@@ -44,6 +44,6 @@ public class UserDTO {
     @JsonProperty("personalData")
     private PersonalDataDTO personalData;
 
-    @JsonProperty("roles")
-    private Set<RoleDTO> roles;
+    @JsonProperty("role")
+    private RoleDTO role;
 }

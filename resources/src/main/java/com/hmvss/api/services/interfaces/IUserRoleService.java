@@ -1,3 +1,4 @@
+/*
 package com.hmvss.api.services.interfaces;
 
 import com.hmvss.api.persistence.model.Role;
@@ -8,3 +9,4 @@ public interface IUserRoleService {
 
     UserRole assingRoleToUser(User user, Role role);
 }
+*/

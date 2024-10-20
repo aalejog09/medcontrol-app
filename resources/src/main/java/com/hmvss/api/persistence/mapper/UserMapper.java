@@ -16,7 +16,8 @@ public interface UserMapper {
             @Mapping(source = "locked", target = "locked"),
             @Mapping(source = "expired", target = "expired"),
             @Mapping(source = "credentialExpired", target = "credentialExpired"),
-            @Mapping(source = "personalData", target = "personalData")
+            @Mapping(source = "personalData", target = "personalData"),
+            @Mapping(source = "role", target = "role")
     })
     UserDTO toUserDTO(User user);
 
@@ -27,7 +28,8 @@ public interface UserMapper {
             @Mapping(source = "locked", target = "locked"),
             @Mapping(source = "expired", target = "expired"),
             @Mapping(source = "credentialExpired", target = "credentialExpired"),
-            @Mapping(source = "personalData", target = "personalData")
+            @Mapping(source = "personalData", target = "personalData"),
+            @Mapping(source = "role", target = "role")
     })
     User toUser(UserDTO userDTO);
 

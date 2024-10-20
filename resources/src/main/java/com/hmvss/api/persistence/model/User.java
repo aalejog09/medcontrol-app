@@ -47,5 +47,9 @@ public class User {
     @JoinColumn(name = "personal_data_id", referencedColumnName = "id")
     private PersonalData personalData;
 
+    @ManyToOne
+    @JoinColumn(name = "role_id", nullable = false)
+    private Role role;
+
 
 }

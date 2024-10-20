@@ -7,18 +7,16 @@ import com.hmvss.api.persistence.mapper.UserMapper;
 import com.hmvss.api.persistence.model.PersonalData;
 import com.hmvss.api.persistence.model.Role;
 import com.hmvss.api.persistence.model.User;
-import com.hmvss.api.persistence.model.UserRole;
 import com.hmvss.api.persistence.repository.user.IUserPagSortRepository;
 import com.hmvss.api.persistence.repository.user.IUserRepository;
 import com.hmvss.api.services.interfaces.IPersonalDataService;
 import com.hmvss.api.services.interfaces.IRoleService;
 import com.hmvss.api.services.interfaces.IUserService;
-import com.hmvss.api.services.interfaces.IUserRoleService;
 import com.hmvss.api.util.Utility;
 import com.hmvss.api.util.exceptions.APIError;
 import com.hmvss.api.util.exceptions.APIException;
+import jakarta.transaction.Transactional;
 import lombok.extern.slf4j.Slf4j;
-import org.mapstruct.control.MappingControl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -44,8 +42,7 @@ public class UserService implements IUserService {
     @Autowired
     private IPersonalDataService personalDataService;
 
-    @Autowired
-    private IUserRoleService userRoleService;
+
 
     @Autowired
     private IRoleService roleService;
@@ -96,12 +93,14 @@ public class UserService implements IUserService {
     }
 
     @Override
+    @Transactional
     public UserDTO registerUser(PersonalDataDTO personalDataDTO, Long roleId) {
 
         PersonalData personalData = personalDataService.register(personalDataDTO);
         if(personalData==null){
             throw new APIException(APIError.DB_SAVING_ERROR);
         }
+        Role role = roleService.getRoleById(roleId);
 
         User newUser= new User();
         String password = utility.passwordGenerator();
@@ -113,9 +112,9 @@ public class UserService implements IUserService {
         newUser.setCredentialExpired(true);//passwordExpirado
         newUser.setUsername(personalData.getContact().getEmail());
         newUser.setPersonalData(personalData);
+        newUser.setRole(role);
         User savedUser = userRepository.save(newUser);
-        Role role = roleService.getRoleById(roleId);
-        UserRole userRoles=userRoleService.assingRoleToUser(newUser, role);
+
         //setear password oculto para no mostrarlo
         savedUser.setPassword("********");
         return userMapper.toUserDTO(savedUser);
@@ -133,14 +132,17 @@ public class UserService implements IUserService {
     }
 
     @Override
+    @Transactional
     public UserDTO updateUserPersonalData(UserDTO userDTO) {
         log.info("userDTO:{}",userDTO);
         User user = userRepository.findByUsername(userDTO.getUsername()).orElseThrow(()-> new APIException(APIError.NOT_FOUND));
         PersonalData personalData = getUserDataByDNI(user.getPersonalData());
+        Role role = roleService.getRoleById(userDTO.getRole().getId());
         //user.setPersonalData(personalData);
         PersonalDataDTO updatePersonalData=userDTO.getPersonalData();
         updatePersonalData.setId(personalData.getId());
         user.setUsername(updatePersonalData.getContact().getEmail());
+        user.setRole(role);
         personalDataService.update(userDTO.getPersonalData());
         userRepository.save(user);
         return userMapper.toUserDTO(user);

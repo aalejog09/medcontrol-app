@@ -3,7 +3,6 @@ package com.hmvss.api.persistence.mapper;
 import com.hmvss.api.dto.user.FunctionDTO;
 import com.hmvss.api.dto.user.RoleDTO;
 import com.hmvss.api.persistence.model.Role;
-import com.hmvss.api.persistence.model.RoleFunction;
 import org.mapstruct.Context;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
@@ -17,18 +16,20 @@ import java.util.stream.Collectors;
 public interface RoleMapper {
 
     @Mappings({
-        @Mapping(source = "id", target = "id"),
-        @Mapping(source = "roleName", target = "roleName"),
-        @Mapping(source = "creationDate", target = "creationDate"),
-        @Mapping(source = "enabled", target = "enabled")
+            @Mapping(source = "id", target = "id"),
+            @Mapping(source = "roleName", target = "roleName"),
+            @Mapping(source = "creationDate", target = "creationDate"),
+            @Mapping(source = "enabled", target = "enabled"),
+            @Mapping(source= "functions", target = "functions")
     })
     RoleDTO toRoleDTO(Role role);
 
     @Mappings({
-        @Mapping(source = "id", target = "id"),
-        @Mapping(source = "roleName", target = "roleName"),
-        @Mapping(source = "creationDate", target = "creationDate"),
-        @Mapping(source = "enabled", target = "enabled")
+            @Mapping(source = "id", target = "id"),
+            @Mapping(source = "roleName", target = "roleName"),
+            @Mapping(source = "creationDate", target = "creationDate"),
+            @Mapping(source = "enabled", target = "enabled"),
+            @Mapping(source= "functions", target = "functions")
     })
     Role toRole(RoleDTO roleDTO);
 

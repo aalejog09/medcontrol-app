@@ -1,9 +1,7 @@
 package com.hmvss.auth.config.service;
 
 import com.hmvss.auth.persistence.model.User;
-import com.hmvss.auth.persistence.model.UserRole;
 import com.hmvss.auth.persistence.repository.IUserRepository;
-import com.hmvss.auth.persistence.repository.IUserRoleRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.security.core.GrantedAuthority;
@@ -27,8 +25,7 @@ public class CustomUserDetailsService implements UserDetailsService {
     @Autowired
     private IUserRepository userRepository;
 
-    @Autowired
-    private IUserRoleRepository userRoleRepository;
+
 
     @Bean
     public PasswordEncoder passwordEncoder() {
@@ -37,12 +34,9 @@ public class CustomUserDetailsService implements UserDetailsService {
 
 
 
-    private Collection<? extends GrantedAuthority> getAuthorities(List<UserRole> userRoles) {
+    private Collection<? extends GrantedAuthority> getAuthorities(User user) {
         List<GrantedAuthority>  authorities = new ArrayList<>();
-
-        for(UserRole userRole : userRoles){
-            authorities.add(new SimpleGrantedAuthority(userRole.getRole().getRoleName()));
-        }
+        authorities.add(new SimpleGrantedAuthority( user.getRole().getRoleName()));
         System.out.println("authorities:"+authorities.toString());
         return authorities;
     }
@@ -50,22 +44,18 @@ public class CustomUserDetailsService implements UserDetailsService {
     @Override
     public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
         User user = userRepository.findByUsername(email);
-        if(user == null) {
-            throw  new UsernameNotFoundException("No User Found");
+        if (user == null) {
+            throw new UsernameNotFoundException("No User Found");
         }
 
-        List<UserRole> userRoles = userRoleRepository.findByUserId(user.getId());
-
-        if(userRoles == null) {
-            throw  new UsernameNotFoundException("No User Roles Found");
-        }
         return new org.springframework.security.core.userdetails.User(
                 user.getUsername(),
                 user.getPassword(),
                 user.isEnabled(),
-                user.isExpired(),
-                user.isCredentialExpired(),
-                user.isLocked(),
-                getAuthorities(userRoles));
+                !user.isExpired(),  // not expired
+                !user.isCredentialExpired(),  // credentials not expired
+                !user.isLocked(),  // account not locked
+                getAuthorities(user)
+        );
     }
 }

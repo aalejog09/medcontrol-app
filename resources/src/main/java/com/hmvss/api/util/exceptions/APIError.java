@@ -14,8 +14,8 @@ public enum APIError {
     ARGUMENT_NOT_VALID("E0004", HttpStatus.BAD_REQUEST, "El valor ingresado no es soportado para el campo: ", List.of("")),
     NOT_FOUND("E0005", HttpStatus.NOT_FOUND, "La informacion solicitada no se encuentra disponible.", List.of("")),
     DB_SAVING_ERROR("E0006", HttpStatus.CONFLICT , "No fue posible registrar la informacion por violacion de integridad de datos.", List.of("")),
-    CITY_NOT_FOUND("E0007", HttpStatus.NOT_FOUND , "la ciudad solicitada no se encuentra disponible ", List.of("")),
-
+    CITY_NOT_FOUND("E0007", HttpStatus.NOT_FOUND , "la ciudad solicitada no se encuentra disponible.", List.of("")),
+    NOT_ASSOCIATED_FUNCTION("E0008", HttpStatus.CONFLICT , "la funcion no se encuentra asociada al rol.", List.of("")),
     ;
 
     private final String code;

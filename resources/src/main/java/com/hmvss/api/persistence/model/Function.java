@@ -7,6 +7,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.util.Date;
+import java.util.Set;
 
 
 /**
@@ -33,7 +34,7 @@ public class Function {
 	@Column(name = "creation_date")
 	private Date creationDate;
 
-	@Column(columnDefinition = "smallint", nullable = false)
+	@Column(name = "enabled")
 	@Convert(converter = BooleanToSmallintConverter.class)
 	private boolean enabled;
 

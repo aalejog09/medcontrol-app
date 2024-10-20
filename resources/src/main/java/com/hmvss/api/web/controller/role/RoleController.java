@@ -1,5 +1,7 @@
 package com.hmvss.api.web.controller.role;
 
+import com.hmvss.api.dto.user.AddFunctionDTO;
+import com.hmvss.api.dto.user.FunctionDTO;
 import com.hmvss.api.dto.user.RoleDTO;
 import com.hmvss.api.dto.user.RoleFunctionDTO;
 import com.hmvss.api.persistence.model.Role;
@@ -25,4 +27,18 @@ public class RoleController {
         Role role = roleService.registerRole(roleDTO);
         return ResponseEntity.ok(role);
     }
+    @SwaggerGenericResponses
+    @PostMapping("/add-function")
+    public ResponseEntity<RoleDTO> addToRole(@Valid @RequestBody AddFunctionDTO addFunctionDTO ) {
+        RoleDTO roleDTO= roleService.assignFunctionToRole(addFunctionDTO);
+        return ResponseEntity.ok(roleDTO);
+    }
+
+    @SwaggerGenericResponses
+    @PostMapping("/remove-function")
+    public ResponseEntity<RoleDTO> removeFromRol(@Valid @RequestBody AddFunctionDTO addFunctionDTO ) {
+        RoleDTO roleDTO= roleService.removeFunctionFromRole(addFunctionDTO);
+        return ResponseEntity.ok(roleDTO);
+    }
+
 }

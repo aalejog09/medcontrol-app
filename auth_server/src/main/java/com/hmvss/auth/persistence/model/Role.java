@@ -7,6 +7,7 @@ import lombok.Data;
 import java.io.Serial;
 import java.io.Serializable;
 import java.util.Date;
+import java.util.Set;
 
 @Data
 @Entity
@@ -19,16 +20,27 @@ public class Role implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id", columnDefinition = "int4")
-    private Integer Id;
+    private Long Id;
 
-    @Column(name = "name")
+    @Column(name = "name", unique = true)
     private String roleName;
+
+    @Column(name = "description")
+    private String description;
 
     @Column(name = "creation_date")
     private Date creationDate;
 
-    @Column(columnDefinition = "smallint", nullable = false)
+    @Column(columnDefinition = "smallint")
     @Convert(converter = BooleanToSmallintConverter.class)
     private boolean enabled;
+
+    @ManyToMany(fetch = FetchType.EAGER)
+    @JoinTable(
+            name = "role_functions",
+            joinColumns = @JoinColumn(name = "role_id"),
+            inverseJoinColumns = @JoinColumn(name = "function_id")
+    )
+    private Set<Function> functions;
 
 }

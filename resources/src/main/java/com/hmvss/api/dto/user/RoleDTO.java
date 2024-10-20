@@ -20,7 +20,7 @@ import java.util.Set;
 public class RoleDTO {
 
     @JsonProperty("id")
-    private Integer id;
+    private Long id;
 
     @JsonProperty("roleName")
     @Schema(description = "roleName", example = "Admin")

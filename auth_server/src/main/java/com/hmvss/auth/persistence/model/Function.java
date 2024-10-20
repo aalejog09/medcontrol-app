@@ -7,6 +7,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.util.Date;
+import java.util.Set;
 
 
 /**
@@ -25,7 +26,7 @@ public class Function {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "id")
-	private int id;
+	private Long id;
 
 	@Column(name = "description")
 	private String description;
@@ -33,9 +34,13 @@ public class Function {
 	@Column(name = "creation_date")
 	private Date creationDate;
 
-	@Column(columnDefinition = "smallint", nullable = false)
+	@ManyToMany(mappedBy = "functions",fetch = FetchType.EAGER)
+	private Set<Role> roles;
+
+	@Column(name = "enabled")
 	@Convert(converter = BooleanToSmallintConverter.class)
 	private boolean enabled;
+
 
 
 }

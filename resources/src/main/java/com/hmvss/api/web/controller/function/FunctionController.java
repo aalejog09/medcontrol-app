@@ -1,6 +1,7 @@
 package com.hmvss.api.web.controller.function;
 
 import com.hmvss.api.dto.user.FunctionDTO;
+import com.hmvss.api.dto.user.AddFunctionDTO;
 import com.hmvss.api.persistence.model.Function;
 import com.hmvss.api.services.interfaces.IFunctionService;
 import com.hmvss.api.util.swagger.documentation.SwaggerGenericResponses;
@@ -27,8 +28,11 @@ public class FunctionController {
 
     @SwaggerGenericResponses
     @GetMapping("/get/all")
-    public ResponseEntity<List<Function>> getAll() {
-        List<Function> function = functionService.getAllFuntcionList();
-        return ResponseEntity.ok(function);
+    public ResponseEntity<List<FunctionDTO>> getAll() {
+        List<FunctionDTO> functionDTO = functionService.getAllFuntcionList();
+        return ResponseEntity.ok(functionDTO);
     }
+
+
+
 }

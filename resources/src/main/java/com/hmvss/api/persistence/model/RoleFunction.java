@@ -1,3 +1,4 @@
+/*
 package com.hmvss.api.persistence.model;
 
 
@@ -28,4 +29,4 @@ public class RoleFunction implements Serializable {
     @JoinColumn(name = "function_id")
     private Function function;
 
-}
+}*/

@@ -35,7 +35,12 @@ public class Role implements Serializable {
     @Convert(converter = BooleanToSmallintConverter.class)
     private boolean enabled;
 
-    @OneToMany(mappedBy = "role", fetch = FetchType.EAGER, cascade = CascadeType.ALL, orphanRemoval = true)
-    private Set<RoleFunction> roleFunctions;
+    @ManyToMany(fetch = FetchType.EAGER)
+    @JoinTable(
+            name = "role_functions",
+            joinColumns = @JoinColumn(name = "role_id"),
+            inverseJoinColumns = @JoinColumn(name = "function_id")
+    )
+    private Set<Function> functions;
 
 }
