@@ -73,6 +73,12 @@ public class UserService implements IUserService {
         return getUserListPaginated(userPageable, userMapper.toUserDTOList(userPageable.getContent()));
     }
 
+    @Override
+    public UserDTO getUserByUsername(String username) {
+        User user = userRepository.findByUsername(username).orElseThrow(()-> new APIException(APIError.NOT_FOUND));
+        return userMapper.toUserDTO(user);
+    }
+
     public PaginationDTO  getUserListPaginated(Page<?> userPageable, List<?> data){
         return paginationService.getPageableData(userPageable, data);
     }

@@ -45,7 +45,10 @@ public class UserController {
         return ResponseEntity.ok(savedUser);
     }
 
-
-
+    @SwaggerGenericResponses
+    @GetMapping("/get/user-info/{username}")
+    public ResponseEntity<UserDTO> getUserByUsername(@Valid @PathVariable String username){
+        return ResponseEntity.ok(userService.getUserByUsername(username));
+    }
 
 }
