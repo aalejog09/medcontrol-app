@@ -17,8 +17,8 @@ public class UserRole implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id", columnDefinition = "int4")
-    private Integer userRolId;
+    @Column(name = "id")
+    private Long userRolId;
 
     @ManyToOne
     @JoinColumn(name = "user_id")

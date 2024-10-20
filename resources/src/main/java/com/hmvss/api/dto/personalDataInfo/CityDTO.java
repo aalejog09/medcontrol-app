@@ -16,7 +16,7 @@ public class CityDTO {
     @JsonProperty("id")
     private Long  id;
 
-    @JsonProperty("city_name")
+    @JsonProperty("cityName")
     private String cityName;
 
     @JsonProperty("capital")

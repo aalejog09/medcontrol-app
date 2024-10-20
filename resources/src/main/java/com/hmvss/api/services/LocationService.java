@@ -37,7 +37,10 @@ public class LocationService implements ILocationService {
     @Override
     @Transactional
     public Location registerLocation(LocationDTO locationDTO) {
-        return locationRepository.save( locationMapper.toLocation(locationDTO));
+        City city = IcityService.getCityById(locationDTO.getCity().getId());
+        Location location = locationMapper.toLocation(locationDTO);
+        location.setCity(city);
+        return locationRepository.save(location);
     }
 
     public Location updateLocation(LocationDTO locationDTO){

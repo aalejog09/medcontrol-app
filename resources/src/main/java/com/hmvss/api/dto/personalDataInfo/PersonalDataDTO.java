@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.Pattern;
 import jakarta.validation.constraints.Size;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -40,9 +41,10 @@ public class PersonalDataDTO {
     @JsonProperty("sex")
     private String sex;
 
-    @Schema(description = "born_date", example = "05/01/1990")
+    @Schema(description = "born_date", example = "05-01-1990")
     @NotBlank(message = "born_date cannot be null or blank.")
-    @Size(min=10, message = "born_date cannot be less than 10 digits.")
+    @Size(min=10, max=10, message = "born_date cannot be more or less than 10 digits.")
+    @Pattern(regexp = "\\d{2}-\\d{2}-\\d{4}", message = "born_date must follow the pattern dd-mm-yyyy") // Date validation
     @JsonProperty("born_date")
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd-MM-yyyy")
     private LocalDate bornDate;
@@ -56,6 +58,7 @@ public class PersonalDataDTO {
     @Schema(description = "dni", example = "V-12345, E-12345")
     @NotBlank(message = "dni cannot be null or blank.")
     @Size(min=7, message = "dni cannot be less than 7 digits.")
+    @Pattern(regexp = "^[VEJ]-[0-9]{1,12}$", message = "DNI must start with a letter V, E o J followed by up to 12digits")
     @JsonProperty("dni")
     private String identificationDocumentNumber;
 

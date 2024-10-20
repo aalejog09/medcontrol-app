@@ -33,11 +33,6 @@ public class PersonalDataService implements IPersonalDataService {
     @Autowired
     IPersonalDataRepository personalDataRepository;
 
-
-
-    @Autowired
-    ICityRepository cityRepository;
-
     @Autowired
     IPersonalDataPagSortRepository personalDataPagSortRepository;
 
@@ -53,8 +48,6 @@ public class PersonalDataService implements IPersonalDataService {
     @Autowired
     ILocationService locationService;
 
-    @Autowired
-    Utility ultility;
 
     @Override
     @Transactional
@@ -80,12 +73,20 @@ public class PersonalDataService implements IPersonalDataService {
     public PersonalDataDTO getPersonalDataByDniAndBornDate(String dni, LocalDate bornDate) {
         log.info("dni: {} bornDate:{}", dni, bornDate);
        // log.info("PesonalData: {}", personalDataRepository.findByIdentificationDocumentNumberAndBornDate(dni, bornDate));
-        PersonalDataDTO personalDataDTO =  personalDataMapper.toPersonalDataDTO(personalDataRepository.findByIdentificationDocumentNumberAndBornDate(dni, bornDate));
+        PersonalDataDTO personalDataDTO =  personalDataMapper.toPersonalDataDTO(getPersonalDataEntityByDniAndBornDate(dni, bornDate));
         if(personalDataDTO == null){
             log.error("Data Not Found");
             throw new APIException(APIError.NOT_FOUND);
         }
         return personalDataDTO;
+    }
+
+    @Override
+    public PersonalData getPersonalDataEntityByDniAndBornDate(String dni, LocalDate bornDate) {
+        log.info("dni: {} bornDate:{}", dni, bornDate);
+        // log.info("PesonalData: {}", personalDataRepository.findByIdentificationDocumentNumberAndBornDate(dni, bornDate));
+        return personalDataRepository.findByIdentificationDocumentNumberAndBornDate(dni, bornDate)
+                .orElseThrow(()-> new APIException(APIError.NOT_FOUND));
     }
 
     @Override
@@ -104,7 +105,13 @@ public class PersonalDataService implements IPersonalDataService {
         return personalDataMapper.toPersonalDataDTO(personalDataUpdated);
     }
 
+    public PersonalData mapToPersonalData(PersonalDataDTO personalDataDTO){
+        return personalDataMapper.toPersonalData(personalDataDTO);
+    }
 
+    public PersonalDataDTO mapToPersonalDataDTO(PersonalData personalData){
+        return personalDataMapper.toPersonalDataDTO(personalData);
+    }
 
     @Override
     public PaginationDTO getAllPersonalDataListPageables(int page, int elements) {
@@ -137,34 +144,4 @@ public class PersonalDataService implements IPersonalDataService {
 
 
 
-
-
-
-/*    private Location updateLocationFromPersonalDataDTO(LocationDTO locationDTO){
-        Location location = locationService.getLocationById(locationDTO.getId());
-        location.setCity(getCityById(locationDTO.getCity().getId()));
-        location.setHousing(locationDTO.getHousing());
-        location.setAdditionalInfo(locationDTO.getAdditionalInfo());
-        return locationRepository.save(location);
-    }*/
-
-    private City getCityById(Long cityId){
-        return cityRepository.findById(cityId)
-                .orElseThrow(() -> new APIException(APIError.NOT_FOUND));
-    }
-
-/*    private Contact updateContactFromPersonalDataDTO(ContactDTO contactDTO){
-        Contact contact = getContactById(contactDTO.getId());
-
-        contact.setEmail(contactDTO.getEmail());
-        contact.setAdditionalEmail(contactDTO.getAdditionalEmail());
-        contact.setPrincipalPhone(contactDTO.getPrincipalPhone());
-        contact.setAdditionalPhone(contactDTO.getAdditionalPhone());
-        return contactRepository.save(contact);
-    }*/
-
-/*    private Contact getContactById(Long contactId){
-        return  contactRepository.findById(contactId)
-                .orElseThrow(() -> new APIException(APIError.NOT_FOUND));
-    }*/
 }

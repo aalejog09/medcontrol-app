@@ -6,6 +6,8 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.util.Set;
+
 /**
  * Clase persistente para representar la informacion de un estado.
  */
@@ -27,7 +29,5 @@ public class State {
 
     @Column(name = "iso_3166_2_code", nullable = false, length = 4)
     private String iso3166Code;
-
-
 
 }

@@ -14,7 +14,14 @@ public interface IPersonalDataService {
 
         PersonalDataDTO getPersonalDataByDniAndBornDate(String dni, LocalDate bornDate);
 
+        PersonalData getPersonalDataEntityByDniAndBornDate(String dni, LocalDate bornDate);
+
         PersonalDataDTO update(PersonalDataDTO personalDataDTO);
 
         PaginationDTO getAllPersonalDataListPageables(int page, int elements);
+
+        PersonalData mapToPersonalData(PersonalDataDTO personalDataDTO);
+
+        PersonalDataDTO mapToPersonalDataDTO(PersonalData personalData);
+
 }

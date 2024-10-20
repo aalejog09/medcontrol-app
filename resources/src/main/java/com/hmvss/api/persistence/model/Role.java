@@ -7,6 +7,7 @@ import lombok.Data;
 import java.io.Serial;
 import java.io.Serializable;
 import java.util.Date;
+import java.util.Set;
 
 @Data
 @Entity
@@ -19,7 +20,7 @@ public class Role implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id", columnDefinition = "int4")
-    private Integer Id;
+    private Long Id;
 
     @Column(name = "name", unique = true)
     private String roleName;
@@ -33,5 +34,8 @@ public class Role implements Serializable {
     @Column(columnDefinition = "smallint")
     @Convert(converter = BooleanToSmallintConverter.class)
     private boolean enabled;
+
+    @OneToMany(mappedBy = "role", fetch = FetchType.EAGER, cascade = CascadeType.ALL, orphanRemoval = true)
+    private Set<RoleFunction> roleFunctions;
 
 }

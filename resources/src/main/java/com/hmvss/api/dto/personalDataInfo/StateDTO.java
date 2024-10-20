@@ -18,6 +18,6 @@ public class StateDTO {
     @JsonProperty("stateName")
     private String stateName;
 
-    @JsonProperty("iso_3166_2_code")
+    @JsonProperty("iso3166Code")
     private String iso3166Code;
 }

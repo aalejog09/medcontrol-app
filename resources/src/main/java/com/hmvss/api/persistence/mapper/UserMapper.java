@@ -2,13 +2,11 @@ package com.hmvss.api.persistence.mapper;
 
 import com.hmvss.api.dto.user.UserDTO;
 import com.hmvss.api.persistence.model.User;
-import org.mapstruct.Mapper;
-import org.mapstruct.Mapping;
-import org.mapstruct.Mappings;
+import org.mapstruct.*;
 
 import java.util.List;
 
-@Mapper(componentModel = "spring", uses = PersonalDataMapper.class)
+@Mapper(componentModel = "spring", uses = {PersonalDataMapper.class, RoleMapper.class})
 public interface UserMapper {
 
     @Mappings({
@@ -35,4 +33,5 @@ public interface UserMapper {
 
     List<UserDTO> toUserDTOList(List<User> users);
     List<User> toUserList(List<UserDTO> userDTOs);
+
 }
