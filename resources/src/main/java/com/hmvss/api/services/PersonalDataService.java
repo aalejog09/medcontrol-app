@@ -61,6 +61,7 @@ public class PersonalDataService implements IPersonalDataService {
 
         newPersonalData.setLocation(locationSaved);
         newPersonalData.setContact(contactSaved);
+        newPersonalData.setRegistryDate(new Date());
         PersonalData personalDataSaved;
         personalDataSaved = personalDataRepository.save(newPersonalData);
         if(personalDataSaved.getId() == null){

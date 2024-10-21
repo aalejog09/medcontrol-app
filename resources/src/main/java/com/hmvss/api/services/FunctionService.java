@@ -7,6 +7,7 @@ import com.hmvss.api.persistence.model.Function;
 import com.hmvss.api.persistence.model.Role;
 import com.hmvss.api.persistence.repository.Function.IFunctionRepository;
 import com.hmvss.api.services.interfaces.IFunctionService;
+import com.hmvss.api.services.interfaces.IRoleService;
 import com.hmvss.api.util.exceptions.APIError;
 import com.hmvss.api.util.exceptions.APIException;
 import lombok.extern.slf4j.Slf4j;
@@ -15,6 +16,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.Date;
 import java.util.List;
+import java.util.Set;
 
 @Slf4j
 @Service
@@ -25,7 +27,6 @@ public class FunctionService implements IFunctionService {
 
     @Autowired
     private FunctionMapper functionMapper;
-
 
     @Override
     public Function getFunctionById(Long functionId){
@@ -47,18 +48,10 @@ public class FunctionService implements IFunctionService {
     }
 
     @Override
-    public Function enableFunction(Long functionId) {
+    public FunctionDTO changeFunctionStatus(Long functionId, boolean status) {
         Function function = getFunctionById(functionId);
-        function.setEnabled(true);
-        return functionRepository.save(function);
+        function.setEnabled(status);
+        return functionMapper.toFunctionDTO(functionRepository.save(function));
     }
-
-    @Override
-    public Function disableFunction(Long functionId) {
-        Function function = getFunctionById(functionId);
-        function.setEnabled(false);
-        return functionRepository.save(function);
-    }
-
 
 }

@@ -6,6 +6,7 @@ import com.hmvss.api.dto.personalDataInfo.PersonalDataDTO;
 import com.hmvss.api.persistence.model.PersonalData;
 import com.hmvss.api.services.interfaces.IPersonalDataService;
 import com.hmvss.api.util.swagger.documentation.SwaggerGenericResponses;
+import jakarta.validation.Valid;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cglib.core.Local;
@@ -27,16 +28,16 @@ public class PersonalDataController {
 
     @SwaggerGenericResponses
     @PostMapping("/register")
-    public ResponseEntity<?> registerUser(@RequestBody PersonalDataDTO personalDataDTO) {
+    public ResponseEntity<?> register(@RequestBody @Valid PersonalDataDTO personalDataDTO) {
         PersonalData personalDataSaved = personalDataService.register(personalDataDTO);
         return ResponseEntity.ok(personalDataSaved);
     }
 
     @SwaggerGenericResponses
     @GetMapping("/get/{dni}/{bornDate}")
-    public ResponseEntity<PersonalDataDTO> findPersonalDataByDniAndBornDate(
-            @PathVariable String dni,
-            @PathVariable @DateTimeFormat(pattern = "dd-MM-yyyy") LocalDate bornDate) {
+    public ResponseEntity<PersonalDataDTO> getPersonalDataByDniAndBornDate(
+            @Valid @PathVariable String dni,
+            @Valid @PathVariable @DateTimeFormat(pattern = "dd-MM-yyyy") LocalDate bornDate) {
         log.info("dni: {} bornDate:{}", dni, bornDate);
         PersonalDataDTO personalDataSaved = personalDataService.getPersonalDataByDniAndBornDate(dni, bornDate);
         return ResponseEntity.ok(personalDataSaved);
@@ -44,7 +45,7 @@ public class PersonalDataController {
 
     @SwaggerGenericResponses
     @PutMapping("/update")
-    public ResponseEntity<PersonalDataDTO> updateUser(@RequestBody PersonalDataDTO personalDataDTO) {
+    public ResponseEntity<PersonalDataDTO> update(@RequestBody PersonalDataDTO personalDataDTO) {
             PersonalDataDTO personalDataUpdated = personalDataService.update(personalDataDTO);
             return ResponseEntity.ok(personalDataUpdated);
     }

@@ -63,7 +63,7 @@ public class PersonalData {
     @JoinColumn(name = "contact_id", nullable = false)
     private Contact contact;
 
-    @Column(name = "registry_date", nullable = false)
+    @Column(name = "registry_date")
     private Date registryDate;
 
 

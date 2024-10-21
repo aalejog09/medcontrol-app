@@ -1,7 +1,9 @@
 package com.hmvss.api.services;
 
 import com.hmvss.api.dto.user.AddFunctionDTO;
+import com.hmvss.api.dto.user.FunctionDTO;
 import com.hmvss.api.dto.user.RoleDTO;
+import com.hmvss.api.persistence.mapper.FunctionMapper;
 import com.hmvss.api.persistence.mapper.RoleMapper;
 import com.hmvss.api.persistence.model.Function;
 import com.hmvss.api.persistence.model.Role;
@@ -16,6 +18,8 @@ import org.springframework.stereotype.Service;
 
 import java.util.Date;
 import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
 
 @Slf4j
 @Service
@@ -29,6 +33,9 @@ public class RoleService implements IRoleService {
 
     @Autowired
     private FunctionService functionService;
+
+    @Autowired
+    private FunctionMapper functionMapper;
 
     @Override
     public Role getRoleById(Long id) {
@@ -73,6 +80,15 @@ public class RoleService implements IRoleService {
         }
         role = roleRepository.save(role);
         return roleMapper.toRoleDTO(role);
+    }
+
+    @Override
+    public List<FunctionDTO> getFunctionsByRolename(String roleName) {
+        Role role = getRoleByName(roleName);
+        Set<Function> funtions = role.getFunctions();
+        List<Function> functionList = new java.util.ArrayList<>(List.of());
+        functionList.addAll(funtions);
+        return functionMapper.toFunctionDTOList(functionList);
     }
 
 }

@@ -15,9 +15,11 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class RegisterUserDTO {
 
+    @Valid
     @JsonProperty("personalData")
     public PersonalDataDTO personalDataDTO;
 
+    @Valid
     @JsonProperty("roleId")
     public Long roleId;
 

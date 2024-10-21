@@ -11,6 +11,11 @@ import jakarta.validation.Valid;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.oauth2.jwt.Jwt;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 
@@ -32,15 +37,18 @@ public class UserController {
 
     @SwaggerGenericResponses
     @PostMapping("/register")
-    public ResponseEntity<UserDTO> registerUser(@Valid @RequestBody RegisterUserDTO registerUserDTO) {
+    public ResponseEntity<UserDTO> registerUser(@Validated @RequestBody RegisterUserDTO registerUserDTO) {
         UserDTO savedUser = userService.registerUser(registerUserDTO.getPersonalDataDTO(), registerUserDTO.getRoleId());
         return ResponseEntity.ok(savedUser);
     }
 
     @SwaggerGenericResponses
     @PutMapping("/update")
-    public ResponseEntity<UserDTO> updateUser(@Valid @RequestBody UserDTO userDTO) {
-        log.info("UserDTO CONTROLLER: {}",userDTO);
+    public ResponseEntity<UserDTO> updateUser(@Validated @RequestBody UserDTO userDTO) {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        Jwt jwt = (Jwt) authentication.getPrincipal();
+        log.info("user in log:{}",jwt.getClaims());
+
         UserDTO savedUser = userService.updateUserPersonalData(userDTO);
         return ResponseEntity.ok(savedUser);
     }

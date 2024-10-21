@@ -20,24 +20,23 @@ public class ContactDTO {
     private Long id;
 
     @Schema(description = "principalPhone", example = "+582120123456")
-    @NotBlank(message = "principalPhone cannot be null or blank.")
-    @Pattern(regexp = "^\\+[0-9]{1,4}[0-9]{10}$", message = "principalPhone must be like  +582120123456")
+    @NotBlank(message = "principalPhone no puede estar vacio.")
+    @Pattern(regexp = "^\\+[0-9]{1,4}[0-9]{10}$", message = "principalPhone  debe ser valido. Ejm: +582120123456")
     @JsonProperty("principalPhone")
     private String principalPhone;
 
-    @NotBlank(message = "additionalPhone cannot be null or blank.")
-    @Schema(description = "additionalEmail", example = "correo@correo.com")
-    @Email
+    @NotBlank(message = "email no puede estar vacio.")
+    @Schema(description = "email", example = "correo@correo.com")
+    @Email(message = "email debe ser una direccion de correo valida. Ejm:correo@gmail.com")
     @JsonProperty("email")
     private String email;
 
     @Schema(description = "additionalPhone", example = "+582120123456")
     @JsonProperty("additionalPhone")
-    @Pattern(regexp = "^\\+[0-9]{1,4}[0-9]{10}$", message = "additionalPhone must be like  +582120123456")
     private String additionalPhone;
 
     @Schema(description = "additionalEmail", example = "correo@correo.com")
-    @Email
+    @Email(message = "additionalEmail debe ser una direccion de correo valida. Ejm:correo@gmail.com")
     @JsonProperty("additionalEmail")
     private String additionalEmail;
 }

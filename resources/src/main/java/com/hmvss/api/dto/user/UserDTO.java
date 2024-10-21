@@ -41,6 +41,7 @@ public class UserDTO {
     @JsonProperty("credentialExpired")
     private boolean credentialExpired;
 
+    @Valid
     @JsonProperty("personalData")
     private PersonalDataDTO personalData;
 

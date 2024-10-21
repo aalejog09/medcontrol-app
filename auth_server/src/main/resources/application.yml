@@ -13,6 +13,12 @@ logging:
          oauth2: TRACE
 
 spring:
+#  datasource:
+#    url: jdbc:postgresql://ep-weathered-meadow-a57g6xfk.us-east-2.aws.neon.tech/medcontrol-db
+#    username: medcontrol-db_owner
+#    password: 6PlzD9XbGmAL
+#    driver-class-name: org.postgresql.Driver
+#    sslmode: require
   datasource:
     url: jdbc:postgresql://localhost:5432/medcontrol_db
     username: postgres

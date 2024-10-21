@@ -1,14 +1,18 @@
 package com.hmvss.api.util.exceptions;
 
 
+import com.fasterxml.jackson.databind.exc.InvalidFormatException;
 import jakarta.servlet.http.HttpServletRequest;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.coyote.BadRequestException;
 import org.springframework.dao.DataIntegrityViolationException;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.http.converter.HttpMessageNotReadableException;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
+import org.springframework.web.context.request.WebRequest;
 import org.springframework.web.method.annotation.MethodArgumentTypeMismatchException;
 
 import java.util.ArrayList;
@@ -89,6 +93,32 @@ public class APIExceptionHandler {
                 .description(APIError.DB_SAVING_ERROR.getHttpStatus().getReasonPhrase())
                 .detail(errors)
                 .build());
+    }
+
+    @ExceptionHandler(HttpMessageNotReadableException.class)
+    public ResponseEntity<?> handleHttpMessageNotReadableException(HttpMessageNotReadableException ex) {
+        Throwable cause = ex.getCause();
+        List<String> errors = new ArrayList<>();
+        if (cause instanceof InvalidFormatException invalidFormatException) {
+            String fieldName = invalidFormatException.getPath().get(0).getFieldName();
+            String message = APIError.ARGUMENT_NOT_VALID.getMessage()+fieldName+invalidFormatException.getValue()+" Expected format is 'dd-MM-yyyy'.";
+            int detailIndex = ex.getLocalizedMessage().indexOf("JSON parse error:");
+            String error = "";
+            if (detailIndex != -1) {
+                int endIndex = ex.getLocalizedMessage().indexOf(": Failed", detailIndex);
+                if (endIndex != -1) {
+                    error = ex.getLocalizedMessage().substring(detailIndex, endIndex).trim();
+                }
+            }
+            errors.add(message);
+            errors.add(error);
+        }
+        return ResponseEntity.badRequest().body(ErrorDTO.builder()
+                .code(APIError.ARGUMENT_NOT_VALID.getCode())
+                .description(APIError.ARGUMENT_NOT_VALID.getHttpStatus().getReasonPhrase())
+                .detail(errors)
+                .build());
+
     }
 
 }

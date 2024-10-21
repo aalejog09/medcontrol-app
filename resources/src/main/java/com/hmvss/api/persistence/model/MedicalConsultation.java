@@ -43,8 +43,8 @@ public class MedicalConsultation {
     private boolean firstConsult;
 
     @ManyToOne
-    @JoinColumn(name = "specialist_id")
-    Specialist specialist;
+    @JoinColumn(name = "specialist_id", referencedColumnName = "id")
+    private Specialist specialist;
 
     @ManyToOne
     @JoinColumn(name = "patient_id")

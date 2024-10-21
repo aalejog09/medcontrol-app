@@ -42,8 +42,6 @@ public class UserService implements IUserService {
     @Autowired
     private IPersonalDataService personalDataService;
 
-
-
     @Autowired
     private IRoleService roleService;
 
@@ -113,6 +111,7 @@ public class UserService implements IUserService {
         newUser.setUsername(personalData.getContact().getEmail());
         newUser.setPersonalData(personalData);
         newUser.setRole(role);
+
         User savedUser = userRepository.save(newUser);
 
         //setear password oculto para no mostrarlo
@@ -121,7 +120,7 @@ public class UserService implements IUserService {
     }
 
 
-    public PersonalData getUserDataByDNI(PersonalData personalData){
+/*    public PersonalData getUserDataByDNI(PersonalData personalData){
         PersonalData personalDataFound = personalDataService.getPersonalDataEntityByDniAndBornDate(
                 personalData.getIdentificationDocumentNumber()
                 ,personalData.getBornDate());
@@ -129,21 +128,23 @@ public class UserService implements IUserService {
             throw new APIException(APIError.NOT_FOUND);
         }
         return personalDataFound;
-    }
+    }*/
 
     @Override
     @Transactional
     public UserDTO updateUserPersonalData(UserDTO userDTO) {
         log.info("userDTO:{}",userDTO);
         User user = userRepository.findByUsername(userDTO.getUsername()).orElseThrow(()-> new APIException(APIError.NOT_FOUND));
-        PersonalData personalData = getUserDataByDNI(user.getPersonalData());
+        PersonalData personalData =  personalDataService.getPersonalDataEntityByDniAndBornDate(
+                userDTO.getPersonalData().getIdentificationDocumentNumber()
+                ,userDTO.getPersonalData().getBornDate());
         Role role = roleService.getRoleById(userDTO.getRole().getId());
         //user.setPersonalData(personalData);
         PersonalDataDTO updatePersonalData=userDTO.getPersonalData();
         updatePersonalData.setId(personalData.getId());
         user.setUsername(updatePersonalData.getContact().getEmail());
         user.setRole(role);
-        personalDataService.update(userDTO.getPersonalData());
+        personalDataService.update(updatePersonalData);
         userRepository.save(user);
         return userMapper.toUserDTO(user);
     }

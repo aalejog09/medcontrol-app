@@ -1,8 +1,11 @@
 package com.hmvss.api.services.interfaces;
 
 import com.hmvss.api.dto.user.AddFunctionDTO;
+import com.hmvss.api.dto.user.FunctionDTO;
 import com.hmvss.api.dto.user.RoleDTO;
 import com.hmvss.api.persistence.model.Role;
+
+import java.util.List;
 
 public interface IRoleService {
 
@@ -15,5 +18,8 @@ public interface IRoleService {
      RoleDTO assignFunctionToRole(AddFunctionDTO addFunctionDTO);
 
      RoleDTO removeFunctionFromRole(AddFunctionDTO addFunctionDTO);
+
+     List<FunctionDTO> getFunctionsByRolename(String roleName);
+
 
 }

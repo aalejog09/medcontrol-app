@@ -14,6 +14,8 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
 @RequestMapping("/api/role")
 public class RoleController {
@@ -39,6 +41,12 @@ public class RoleController {
     public ResponseEntity<RoleDTO> removeFromRol(@Valid @RequestBody AddFunctionDTO addFunctionDTO ) {
         RoleDTO roleDTO= roleService.removeFunctionFromRole(addFunctionDTO);
         return ResponseEntity.ok(roleDTO);
+    }
+
+    @GetMapping("/getByRole/{roleName}")
+    public ResponseEntity<List<FunctionDTO>> getFunctionsByRolename(@PathVariable String roleName) {
+        List<FunctionDTO> functions = roleService.getFunctionsByRolename(roleName);
+        return ResponseEntity.ok(functions);
     }
 
 }

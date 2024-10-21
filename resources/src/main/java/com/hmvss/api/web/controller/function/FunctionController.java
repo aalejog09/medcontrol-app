@@ -33,6 +33,13 @@ public class FunctionController {
         return ResponseEntity.ok(functionDTO);
     }
 
+    @SwaggerGenericResponses
+    @GetMapping("/enable/{functionId}/{status}")
+    public ResponseEntity<FunctionDTO> enableFunction(@Valid @PathVariable Long functionId, @PathVariable boolean status) {
+        FunctionDTO functionDTO = functionService.changeFunctionStatus(functionId, status);
+        return ResponseEntity.ok(functionDTO);
+    }
+
 
 
 }

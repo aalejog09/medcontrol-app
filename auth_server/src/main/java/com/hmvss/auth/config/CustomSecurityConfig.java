@@ -209,7 +209,6 @@ public class CustomSecurityConfig {
                 Set<String> authorities = principal.getAuthorities().stream().map(GrantedAuthority::getAuthority)
                         .collect(Collectors.toSet());
                 context.getClaims().claim("authorities", authorities);
-                context.getClaims().claim("Attributes", "attributes");
             }
 
             if (OidcParameterNames.ID_TOKEN.equals(context.getTokenType().getValue())) {
