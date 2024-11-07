@@ -8,6 +8,7 @@ import java.text.ParseException;
 import java.time.LocalDate;
 import java.time.Period;
 import java.time.format.DateTimeFormatter;
+import java.util.function.Consumer;
 
 @Service
 @Slf4j
@@ -59,5 +60,17 @@ public class Utility {
             System.out.println("La persona es mayor de 18 años.");
         }
         return olderThan18;
+    }
+
+    public void updateIfNotBlankAndDifferent(Consumer<String> setter, String currentValue, String newValue) {
+        if (newValue != null && !newValue.isBlank() && !newValue.equals(currentValue)) {
+            setter.accept(newValue);
+        }
+    }
+
+    private <T> void updateIfNotNullAndDifferent(Consumer<T> setter, T currentValue, T newValue) {
+        if (newValue != null && !newValue.equals(currentValue)) {
+            setter.accept(newValue);
+        }
     }
 }

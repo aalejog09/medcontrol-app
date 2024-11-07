@@ -24,4 +24,6 @@ public interface IPersonalDataService {
 
         PersonalDataDTO mapToPersonalDataDTO(PersonalData personalData);
 
+        PersonalDataDTO getPersonalDataById(Long id);
+
 }

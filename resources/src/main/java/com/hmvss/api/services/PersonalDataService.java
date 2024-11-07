@@ -143,6 +143,9 @@ public class PersonalDataService implements IPersonalDataService {
         return personalDataList;
     }
 
+    public PersonalDataDTO getPersonalDataById(Long id){
+        return mapToPersonalDataDTO(personalDataRepository.findById(id).orElseThrow(()-> new APIException(APIError.NOT_FOUND)));
+    }
 
 
 }

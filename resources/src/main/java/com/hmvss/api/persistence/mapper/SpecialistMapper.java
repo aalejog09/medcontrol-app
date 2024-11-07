@@ -6,7 +6,7 @@ import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 import org.mapstruct.factory.Mappers;
 
-@Mapper(componentModel = "spring", uses = {PersonalDataMapper.class, MedicalConsultationMapper.class})
+@Mapper(componentModel = "spring", uses = {PersonalDataMapper.class/*, MedicalConsultationMapper.class*/})
 public interface SpecialistMapper {
     SpecialistMapper INSTANCE = Mappers.getMapper(SpecialistMapper.class);
 
@@ -16,7 +16,7 @@ public interface SpecialistMapper {
     @Mapping(source = "mppsCode", target = "mppsCode")
     @Mapping(source = "speciality", target = "speciality")
     @Mapping(source = "type", target = "type")
-    @Mapping(source = "medicalConsultations", target = "medicalConsultations")
+   // @Mapping(source = "medicalConsultations", target = "medicalConsultations")
     SpecialistDTO toSpecialistDTO(Specialist specialist);
 
     @Mapping(source = "id", target = "id")
@@ -25,6 +25,6 @@ public interface SpecialistMapper {
     @Mapping(source = "mppsCode", target = "mppsCode")
     @Mapping(source = "speciality", target = "speciality")
     @Mapping(source = "type", target = "type")
-    @Mapping(source = "medicalConsultations", target = "medicalConsultations")
+    //@Mapping(source = "medicalConsultations", target = "medicalConsultations")
     Specialist toSpecialist(SpecialistDTO specialistDTO);
 }

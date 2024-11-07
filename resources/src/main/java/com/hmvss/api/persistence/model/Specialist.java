@@ -25,10 +25,10 @@ public class Specialist{
     @JoinColumn(name = "personal_data_id", referencedColumnName = "id")
     private PersonalData personalData;
 
-    @Column(name = "medical_college_code", nullable = false, length = 200)
+    @Column(name = "medical_college_code", nullable = false, length = 200, unique = true)
     private String medicalCollegeCode;
 
-    @Column(name = "mpps_code", nullable = false, length = 200)
+    @Column(name = "mpps_code", nullable = false, length = 200, unique = true)
     private String mppsCode;
 
     @Column(name = "speciality", nullable = false, length = 200)

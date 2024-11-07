@@ -36,8 +36,9 @@ public class SpecialistDTO {
     @JsonProperty("personalData")
     private PersonalDataDTO personalData;
 
-
+/*
     @JsonProperty("medicalConsultations")
     List<MedicalConsultationDTO> medicalConsultations;
+*/
 
 }
