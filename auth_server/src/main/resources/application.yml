@@ -20,9 +20,9 @@ spring:
 #    driver-class-name: org.postgresql.Driver
 #    sslmode: require
   datasource:
-    url: jdbc:postgresql://localhost:5432/medcontrol_db
+    url: jdbc:postgresql://localhost:5432/med-control
     username: postgres
-    password: 123456
+    password: root
   application:
     name: auth_server
   security:
